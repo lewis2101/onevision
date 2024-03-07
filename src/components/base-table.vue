@@ -8,14 +8,18 @@
         :items-per-page-options="perPageOptions"
         :items="items"
         :headers="headers"
+        :loading="getLoading"
     >
       <template #item="{ item }">
-        <tr class="hoverable" @click="onRowClick(item.id)">
+        <tr class="hoverable" @click="onRowClick(item.id)" :style="{ color: getLoading ? 'lightgray' : '' }">
           <td>{{ item.date }}</td>
           <td>{{ formatSum(item.sum) }}</td>
           <td>{{ $t(`type.${item.type}`) }}</td>
           <td>
-            <v-chip :color="colorMapper[item.status]">
+            <v-chip :style="[
+              { 'color': getLoading ? 'gray' : colorMapper[item.status]},
+              colorMapper[item.status]
+            ]">
               {{ $t(`status.${item.status}`) }}
             </v-chip>
           </td>
@@ -53,7 +57,10 @@ import {formatSum} from "@/helpers";
 const props = defineProps<{
   items: Array<Record<string, string>>,
   headers: Array<Record<string, string | boolean>>,
+  loading: boolean
 }>()
+
+const getLoading = computed(() => props.loading)
 
 const perPageOptions = computed(() => {
   const options = [10]
@@ -72,6 +79,7 @@ const colorMapper: Record<IStatus, string> = {
 }
 
 const onRowClick = (id: string) => {
+  if(getLoading.value) return
   currentId.value = id
   modal.value = true
   // Handle row click event here

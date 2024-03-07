@@ -27,24 +27,35 @@
         </template>
       </v-select>
     </div>
-    <base-table :headers="headers" :items="sortedItems"/>
+    <base-table
+      :headers="headers"
+      :items="sortedItems"
+      :loading="loading"
+    />
   </base-layout>
 </template>
 
 <script setup lang="ts">
-// import levenshtein from 'js-levenshtein';
 import BaseLayout from "@/components/base-layout.vue";
 import BaseHeader from "@/components/base-header.vue";
 import BaseTable from "@/components/base-table.vue";
 import {formatDate} from "@/helpers";
 import {useI18n} from "vue-i18n";
-import {computed, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 
 const {t} = useI18n()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
+
+const loading = ref(true)
+
+onMounted(() => {
+  setTimeout(() => {
+    loading.value = false
+  }, 1500)
+})
 
 const listType = computed(() => (
   [
@@ -98,15 +109,17 @@ const toFilterTypeTransaction = (value: IType) => {
 }
 
 const sort = () => {
-  if(typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
+  loading.value = true
+  setTimeout(() => {
+    loading.value = false
+    if(typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
 
-  sortedItems.value = items.filter(i => {
-    if (typeTransactionFilter.value && statusFilter.value) {
-      return i.type === typeTransactionFilter.value && i.status === statusFilter.value
-    }
-    if(typeTransactionFilter.value) return i.type === typeTransactionFilter.value
-    if(statusFilter.value) return i.status === statusFilter.value
-  })
+    sortedItems.value = items.filter(i => {
+      if (typeTransactionFilter.value && statusFilter.value) return i.type === typeTransactionFilter.value && i.status === statusFilter.value
+      if(typeTransactionFilter.value) return i.type === typeTransactionFilter.value
+      if(statusFilter.value) return i.status === statusFilter.value
+    })
+  }, 500)
 }
 
 const headers = computed(() => (
