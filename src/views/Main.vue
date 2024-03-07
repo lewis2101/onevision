@@ -5,7 +5,19 @@
     </template>
     <!--    <input type="text" placeholder="search" v-model="model">-->
     <div class="filter">
-      <v-btn @click="filter = true">{{ $t('filter') }}</v-btn>
+<!--      <v-btn @click="filter = true">{{ $t('filter') }}</v-btn>-->
+      <v-select
+        style="max-width: 250px; width: 100%;"
+        clearable
+        label="Тип транзакции"
+        :items="['Покупка', 'Подписка', 'Возврат']"
+      ></v-select>
+      <v-select
+        style="max-width: 250px; width: 100%;"
+        clearable
+        label="Статус"
+        :items="['Успешно', 'В обработке', 'Ошибка']"
+      ></v-select>
     </div>
     <base-table :headers="headers" :items="items"/>
     <v-dialog
@@ -90,36 +102,36 @@ const items = [
   {
     date: formatDate(new Date()),
     sum: formatSum('2534'),
-    type: 'Покупка',
-    details: 'Успешно',
+    type: 'buy',
+    details: 'success',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
     sum: formatSum('13456'),
-    type: 'Возврат',
-    details: 'Отказано',
+    type: 'comeback',
+    details: 'reject',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
     sum: formatSum('554543'),
-    type: 'Подписка',
-    details: 'Успешно',
+    type: 'subscribe',
+    details: 'success',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
     sum: formatSum('146363'),
-    type: 'Покупка',
-    details: 'Успешно',
+    type: 'buy',
+    details: 'pending',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
     sum: formatSum('10130000'),
-    type: 'Возврат',
-    details: 'Успешно',
+    type: 'comeback',
+    details: 'reject',
     id: Date.now()
   },
 ]
@@ -137,5 +149,6 @@ const items = [
   width: 100%;
   justify-content: flex-end;
   align-items: end;
+  gap: 10px;
 }
 </style>
