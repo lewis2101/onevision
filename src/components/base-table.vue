@@ -12,7 +12,7 @@
         <tr class="hoverable" @click="onRowClick(item.id)">
           <td>{{ item.date }}</td>
           <td>{{ item.sum }}</td>
-          <td>{{ item.type }}</td>
+          <td>{{ $t(`type.${item.type}`) }}</td>
           <td>
             <v-chip :color="colorMapper[item.status]">
               {{ $t(`status.${item.status}`) }}

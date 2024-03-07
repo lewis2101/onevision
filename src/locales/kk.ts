@@ -13,5 +13,10 @@ export default {
     'success': 'Сәтті',
     'reject': 'Бас тартылды',
     'pending': 'Өңдеуде'
+  },
+  type: {
+    buy: 'Сатып алу',
+    comeback: 'Қайтару',
+    subscribe: 'Жазылым'
   }
 }

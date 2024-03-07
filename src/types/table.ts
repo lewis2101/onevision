@@ -14,12 +14,6 @@ const status = [
 
 export type IStatus = typeof status[number]
 
-const statusMap: Record<IStatus, string> = {
-  'success': 'asd',
-  'pending': 'asd',
-  'reject': 'asd'
-}
-
 export type IItem =  {
   date: string,
   sum: string,

@@ -13,5 +13,10 @@ export default {
     'success': 'Успешно',
     'reject': 'Отказано',
     'pending': 'В обработке'
+  },
+  type: {
+    buy: 'Покупка',
+    comeback: 'Возврат',
+    subscribe: 'Подписка'
   }
 }
