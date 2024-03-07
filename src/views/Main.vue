@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import levenshtein from 'js-levenshtein';
+// import levenshtein from 'js-levenshtein';
 import BaseLayout from "@/components/base-layout.vue";
 import BaseHeader from "@/components/base-header.vue";
 import BaseTable from "@/components/base-table.vue";
@@ -73,9 +73,9 @@ const filter = ref(false)
 //   })
 // })
 
-const isContains = (text: string, query: string) => {
-  if (text.includes(query) || levenshtein(query, text) <= 3) return text.includes(query) || levenshtein(query, text) <= 3
-}
+// const isContains = (text: string, query: string) => {
+//   if (text.includes(query) || levenshtein(query, text) <= 3) return text.includes(query) || levenshtein(query, text) <= 3
+// }
 
 const headers = computed(() => (
   [
@@ -88,39 +88,39 @@ const headers = computed(() => (
 
 const items = [
   {
-    date: formatDate(new Date()),
+    date: formatDate(new Date().toString()),
     sum: formatSum('2534'),
     type: 'Покупка',
     details: 'Успешно',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
-    date: formatDate(new Date()),
+    date: formatDate(new Date().toString()),
     sum: formatSum('13456'),
     type: 'Возврат',
     details: 'Отказано',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
-    date: formatDate(new Date()),
+    date: formatDate(new Date().toString()),
     sum: formatSum('554543'),
     type: 'Подписка',
     details: 'Успешно',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
-    date: formatDate(new Date()),
+    date: formatDate(new Date().toString()),
     sum: formatSum('146363'),
     type: 'Покупка',
     details: 'Успешно',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
-    date: formatDate(new Date()),
+    date: formatDate(new Date().toString()),
     sum: formatSum('10130000'),
     type: 'Возврат',
     details: 'Успешно',
-    id: Date.now()
+    id: Date.now().toString()
   },
 ]
 

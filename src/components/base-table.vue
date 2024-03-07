@@ -49,7 +49,7 @@ import {computed, ref} from "vue";
 
 const props = defineProps<{
   items: Array<Record<string, string>>,
-  headers: Array<Record<string, string>>,
+  headers: Array<Record<string, string | boolean>>,
 }>()
 
 const perPageOptions = computed(() => {
@@ -62,7 +62,7 @@ const perPageOptions = computed(() => {
 const modal = ref(false)
 const currentId = ref<null | string>(null)
 
-const getColor = (status: 'Успешно' | 'Отказано') => status === 'Успешно' ? 'green' : 'red'
+const getColor = (status: string) => status === 'Успешно' ? 'green' : 'red'
 
 const onRowClick = (id: string) => {
   currentId.value = id
