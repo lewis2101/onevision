@@ -89,36 +89,36 @@ const headers = computed(() => (
 const items = [
   {
     date: formatDate(new Date()),
-    sum: formatSum('100000'),
+    sum: formatSum('2534'),
     type: 'Покупка',
     details: 'Успешно',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
-    sum: formatSum('100000'),
-    type: 'Баука',
+    sum: formatSum('13456'),
+    type: 'Возврат',
+    details: 'Отказано',
+    id: Date.now()
+  },
+  {
+    date: formatDate(new Date()),
+    sum: formatSum('554543'),
+    type: 'Подписка',
     details: 'Успешно',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
-    sum: formatSum('100000'),
+    sum: formatSum('146363'),
     type: 'Покупка',
     details: 'Успешно',
     id: Date.now()
   },
   {
     date: formatDate(new Date()),
-    sum: formatSum('100000'),
-    type: 'Покупка',
-    details: 'Успешно',
-    id: Date.now()
-  },
-  {
-    date: formatDate(new Date()),
-    sum: formatSum('100000'),
-    type: 'Покупка',
+    sum: formatSum('10130000'),
+    type: 'Возврат',
     details: 'Успешно',
     id: Date.now()
   },

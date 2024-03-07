@@ -31,7 +31,7 @@ const changeLocale = (lang: 'ru' | 'kk') => setLocale(lang)
 <style lang="scss" scoped>
 
 .disabled {
-  color: #B4BBB4;
+  color: gray;
 }
 
 </style>
