@@ -104,35 +104,35 @@ const items = [
     sum: formatSum('2534'),
     type: 'buy',
     details: 'success',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('13456'),
     type: 'comeback',
     details: 'reject',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('554543'),
     type: 'subscribe',
     details: 'success',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('146363'),
     type: 'buy',
     details: 'pending',
-    id: Date.now()
+    id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('10130000'),
     type: 'comeback',
     details: 'reject',
-    id: Date.now()
+    id: Date.now().toString()
   },
 ]
 
