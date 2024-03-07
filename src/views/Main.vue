@@ -60,6 +60,7 @@ import BaseTable from "@/components/base-table.vue";
 import {formatDate, formatSum} from "@/helpers";
 import {useI18n} from "vue-i18n";
 import {computed, ref, watch} from "vue";
+import {IItem} from "@/types/table";
 
 const {t} = useI18n()
 
@@ -98,40 +99,40 @@ const headers = computed(() => (
   ]
 ))
 
-const items = [
+const items: IItem[] = [
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('2534'),
     type: 'buy',
-    details: 'success',
+    status: 'success',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('13456'),
     type: 'comeback',
-    details: 'reject',
+    status: 'reject',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('554543'),
     type: 'subscribe',
-    details: 'success',
+    status: 'success',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('146363'),
     type: 'buy',
-    details: 'pending',
+    status: 'pending',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
     sum: formatSum('10130000'),
     type: 'comeback',
-    details: 'reject',
+    status: 'reject',
     id: Date.now().toString()
   },
 ]

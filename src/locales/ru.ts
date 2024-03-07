@@ -6,7 +6,12 @@ export default {
     'date': 'Дата',
     'sum': 'Сумма (₸)',
     'type': 'Тип транзакции',
-    'details': 'Детали'
+    'details': 'Статус'
   },
-  filter: 'Фильтр'
+  filter: 'Фильтр',
+  status: {
+    'success': 'Успешно',
+    'reject': 'Отказано',
+    'pending': 'В обработке'
+  }
 }

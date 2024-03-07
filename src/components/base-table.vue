@@ -14,8 +14,8 @@
           <td>{{ item.sum }}</td>
           <td>{{ item.type }}</td>
           <td>
-            <v-chip :color="getColor(item.details)">
-              {{ item.details }}
+            <v-chip :color="colorMapper[item.status]">
+              {{ $t(`status.${item.status}`) }}
             </v-chip>
           </td>
         </tr>
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
+import {IStatus} from "@/types/table";
 
 const props = defineProps<{
   items: Array<Record<string, string>>,
@@ -62,7 +63,11 @@ const perPageOptions = computed(() => {
 const modal = ref(false)
 const currentId = ref<null | string>(null)
 
-const getColor = (status: string) => status === 'Успешно' ? 'green' : 'red'
+const colorMapper: Record<IStatus, string> = {
+  'success': 'green',
+  'pending': 'yellow',
+  'reject': 'red'
+}
 
 const onRowClick = (id: string) => {
   currentId.value = id

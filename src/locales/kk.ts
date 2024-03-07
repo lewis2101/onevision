@@ -6,7 +6,12 @@ export default {
     'date': 'Уақыт күні',
     'sum': 'Сомасы (₸)',
     'type': 'Транзакция түрі',
-    'details': 'Толығырақ'
+    'details': 'Статус'
   },
-  filter: 'Сүзгі'
+  filter: 'Сүзгі',
+  status: {
+    'success': 'Сәтті',
+    'reject': 'Бас тартылды',
+    'pending': 'Өңдеуде'
+  }
 }
