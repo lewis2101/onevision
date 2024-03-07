@@ -11,15 +11,18 @@
         clearable
         label="Тип транзакции"
         :items="['Покупка', 'Подписка', 'Возврат']"
-      ></v-select>
+      >
+      </v-select>
       <v-select
+        v-model="status"
         style="max-width: 250px; width: 100%;"
         clearable
+        @click="select"
         label="Статус"
         :items="['Успешно', 'В обработке', 'Ошибка']"
       ></v-select>
     </div>
-    <base-table :headers="headers" :items="items"/>
+    <base-table :headers="headers" :items="sortedItems"/>
     <v-dialog
       v-model="filter"
       width="auto"
@@ -57,15 +60,21 @@
 import BaseLayout from "@/components/base-layout.vue";
 import BaseHeader from "@/components/base-header.vue";
 import BaseTable from "@/components/base-table.vue";
-import {formatDate, formatSum} from "@/helpers";
+import {formatDate} from "@/helpers";
 import {useI18n} from "vue-i18n";
 import {computed, ref, watch} from "vue";
-import {IItem} from "@/types/table";
+import {IItem, IStatus, IType} from "@/types/table";
 
 const {t} = useI18n()
 
 const model = ref('')
 const filter = ref(false)
+const typeTransaction = ref<IType | null>(null)
+const status = ref<IStatus | null>(null)
+
+const select = (item) => {
+  console.log(item)
+}
 
 // watch(model, value => {
 //   const query = value.toLowerCase();
@@ -102,42 +111,41 @@ const headers = computed(() => (
 const items: IItem[] = [
   {
     date: formatDate(new Date().toString()),
-    sum: formatSum('2534'),
+    sum: '2534',
     type: 'buy',
     status: 'success',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
-    sum: formatSum('13456'),
+    sum: '13456',
     type: 'comeback',
     status: 'reject',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
-    sum: formatSum('554543'),
+    sum: '554543',
     type: 'subscribe',
     status: 'success',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
-    sum: formatSum('146363'),
+    sum: '146363',
     type: 'buy',
     status: 'pending',
     id: Date.now().toString()
   },
   {
     date: formatDate(new Date().toString()),
-    sum: formatSum('10130000'),
+    sum: '10130000',
     type: 'comeback',
     status: 'reject',
     id: Date.now().toString()
   },
 ]
-
-// const sortedItems = ref(items)
+const sortedItems = ref(items)
 
 </script>
 

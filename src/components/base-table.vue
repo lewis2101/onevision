@@ -11,7 +11,7 @@
       <template #item="{ item }">
         <tr class="hoverable" @click="onRowClick(item.id)">
           <td>{{ item.date }}</td>
-          <td>{{ item.sum }}</td>
+          <td>{{ formatSum(item.sum) }}</td>
           <td>{{ $t(`type.${item.type}`) }}</td>
           <td>
             <v-chip :color="colorMapper[item.status]">
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {IStatus} from "@/types/table";
+import {formatSum} from "../helpers";
 
 const props = defineProps<{
   items: Array<Record<string, string>>,
