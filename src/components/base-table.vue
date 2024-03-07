@@ -4,6 +4,7 @@
         page-text=""
         :show-current-page="true"
         items-per-page-text="Количество"
+        no-data-text="Ничего не найдено"
         :items-per-page-options="perPageOptions"
         :items="items"
         :headers="headers"
@@ -47,7 +48,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {IStatus} from "@/types/table";
-import {formatSum} from "../helpers";
+import {formatSum} from "@/helpers";
 
 const props = defineProps<{
   items: Array<Record<string, string>>,

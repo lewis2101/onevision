@@ -1,18 +1,18 @@
-const type = [
+export const typeList = [
   'buy',
   'comeback',
   'subscribe'
 ] as const
 
-export type IType = typeof type[number]
+export type IType = typeof typeList[number]
 
-const status = [
+export const statusList = [
   'success',
   'pending',
   'reject'
 ] as const
 
-export type IStatus = typeof status[number]
+export type IStatus = typeof statusList[number]
 
 export type IItem =  {
   date: string,

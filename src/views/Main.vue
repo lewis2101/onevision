@@ -3,55 +3,31 @@
     <template #header>
       <base-header/>
     </template>
-    <!--    <input type="text" placeholder="search" v-model="model">-->
     <div class="filter">
-<!--      <v-btn @click="filter = true">{{ $t('filter') }}</v-btn>-->
       <v-select
         style="max-width: 250px; width: 100%;"
         clearable
-        label="Тип транзакции"
-        :items="['Покупка', 'Подписка', 'Возврат']"
+        :label="$t('table.type')"
+        :items="listType"
+        @click:clear="typeTransactionFilter = null"
       >
+        <template #item="{ props, item }">
+          <v-list-item v-bind="props" @click="toFilterTypeTransaction(item.value)"></v-list-item>
+        </template>
       </v-select>
       <v-select
-        v-model="status"
         style="max-width: 250px; width: 100%;"
         clearable
-        @click="select"
-        label="Статус"
-        :items="['Успешно', 'В обработке', 'Ошибка']"
-      ></v-select>
+        :label="$t('table.status')"
+        :items="listStatus"
+        @click:clear="statusFilter = null"
+      >
+        <template #item="{ props, item }">
+          <v-list-item v-bind="props" @click="toFilterStatus(item.value)"></v-list-item>
+        </template>
+      </v-select>
     </div>
     <base-table :headers="headers" :items="sortedItems"/>
-    <v-dialog
-      v-model="filter"
-      width="auto"
-    >
-      <v-card
-        max-width="400"
-        title="Фильтр"
-      >
-        <template #text>
-          <div style="margin-bottom: 10px;">От:
-            <v-btn>
-              <input type="date" style="outline: none">
-            </v-btn>
-          </div>
-          <div>До:
-          <v-btn>
-            <input type="date" style="outline: none">
-          </v-btn>
-          </div>
-        </template>
-        <template v-slot:actions>
-          <v-btn
-            class="ms-auto"
-            text="Ok"
-            @click="filter = false"
-          ></v-btn>
-        </template>
-      </v-card>
-    </v-dialog>
   </base-layout>
 </template>
 
@@ -67,44 +43,78 @@ import {IItem, IStatus, IType} from "@/types/table";
 
 const {t} = useI18n()
 
-const model = ref('')
-const filter = ref(false)
-const typeTransaction = ref<IType | null>(null)
-const status = ref<IStatus | null>(null)
+const typeTransactionFilter = ref<IType | null>(null)
+const statusFilter = ref<IStatus | null>(null)
 
-const select = (item) => {
-  console.log(item)
+const listType = computed(() => (
+  [
+    {
+      title: t('type.buy'),
+      value: 'buy',
+    },
+    {
+      title: t('type.comeback'),
+      value: 'comeback',
+    },
+    {
+      title: t('type.subscribe'),
+      value: 'subscribe',
+    }
+  ]
+))
+
+const listStatus = computed(() => (
+  [
+    {
+      title: t('status.success'),
+      value: 'success',
+    },
+    {
+      title: t('status.reject'),
+      value: 'reject',
+    },
+    {
+      title: t('status.pending'),
+      value: 'pending',
+    }
+  ]
+))
+
+watch(typeTransactionFilter, value => {
+  if(value === null) sort()
+})
+
+watch(statusFilter, value => {
+  if(value === null) sort()
+})
+const toFilterStatus = (value: IStatus) => {
+  statusFilter.value = value
+  sort()
 }
 
-// watch(model, value => {
-//   const query = value.toLowerCase();
-//   console.log(query)
-//   if(!query) sortedItems.value = items
-//
-//   sortedItems.value = items.filter(item => {
-//     const itemDate = item.date.toLowerCase();
-//     const itemSum = item.sum.toLowerCase();
-//     const itemType = item.type.toLowerCase();
-//     const itemDetails = item.details.toLowerCase();
-//
-//     if(isContains(itemDate, query)) return isContains(itemDate, query)
-//     if(isContains(itemSum, query)) return isContains(itemSum, query)
-//     if(isContains(itemType, query)) return isContains(itemType, query)
-//     if(isContains(itemDetails, query)) return isContains(itemDetails, query)
-//
-//   })
-// })
+const toFilterTypeTransaction = (value: IType) => {
+  typeTransactionFilter.value = value
+  sort()
+}
 
-// const isContains = (text: string, query: string) => {
-//   if (text.includes(query) || levenshtein(query, text) <= 3) return text.includes(query) || levenshtein(query, text) <= 3
-// }
+const sort = () => {
+  if(typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
+
+  sortedItems.value = items.filter(i => {
+    if (typeTransactionFilter.value && statusFilter.value) {
+      return i.type === typeTransactionFilter.value && i.status === statusFilter.value
+    }
+    if(typeTransactionFilter.value) return i.type === typeTransactionFilter.value
+    if(statusFilter.value) return i.status === statusFilter.value
+  })
+}
 
 const headers = computed(() => (
   [
     {title: t('table.date'), value: 'date', sortable: true},
     {title: t('table.sum'), value: 'sum', sortable: true},
     {title: t('table.type'), value: 'type', sortable: true},
-    {title: t('table.details'), value: 'details', sortable: true}
+    {title: t('table.status'), value: 'status', sortable: true}
   ]
 ))
 
@@ -118,8 +128,36 @@ const items: IItem[] = [
   },
   {
     date: formatDate(new Date().toString()),
-    sum: '13456',
+    sum: '32453',
+    type: 'buy',
+    status: 'reject',
+    id: Date.now().toString()
+  },
+  {
+    date: formatDate(new Date().toString()),
+    sum: '3453',
+    type: 'buy',
+    status: 'pending',
+    id: Date.now().toString()
+  },
+  {
+    date: formatDate(new Date().toString()),
+    sum: '25243523434',
+    type: 'subscribe',
+    status: 'pending',
+    id: Date.now().toString()
+  },
+  {
+    date: formatDate(new Date().toString()),
+    sum: '25327624',
     type: 'comeback',
+    status: 'success',
+    id: Date.now().toString()
+  },
+  {
+    date: formatDate(new Date().toString()),
+    sum: '13456',
+    type: 'subscribe',
     status: 'reject',
     id: Date.now().toString()
   },
