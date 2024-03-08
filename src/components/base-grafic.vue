@@ -8,11 +8,13 @@
 import Chart from 'chart.js/auto'
 import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus} from "@/types/table";
+import {useI18n} from "vue-i18n";
 
 const props = defineProps<{
   items: IItem[] | null
 }>()
 
+const {t} = useI18n()
 const chart = ref<any>(null)
 
 const getItems = computed(() => props.items)
@@ -59,21 +61,21 @@ const dataChart = computed(() => (
       labels: labels.value,
       datasets: [
         {
-          label: 'Success',
+          label: t('status.success'),
           data: successItems.value,
           backgroundColor: 'green',
           borderWidth: 1,
           borderColor: 'green'
         },
         {
-          label: 'Reject',
+          label: t('status.reject'),
           data: rejectItems.value,
           backgroundColor: 'red',
           borderWidth: 1,
           borderColor: 'red'
         },
         {
-          label: 'Pending',
+          label: t('status.pending'),
           data: pendingItems.value,
           backgroundColor: 'yellow',
           borderWidth: 1,

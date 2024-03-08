@@ -2,7 +2,6 @@
   <div>
     <base-grafic
         v-if="items"
-        ref="grafic"
         :items="items"
     />
   </div>
