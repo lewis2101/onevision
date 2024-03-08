@@ -3,6 +3,7 @@
     <template #header>
       <base-header/>
     </template>
+    <base-grafic ref="grafic" :items="sortedItems"/>
     <div class="filter">
       <v-select
         style="max-width: 250px; width: 100%;"
@@ -43,13 +44,16 @@ import {formatDate} from "@/helpers";
 import {useI18n} from "vue-i18n";
 import {computed, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
+import BaseGrafic from "@/components/base-grafic.vue";
 
 const {t} = useI18n()
+
+const grafic = ref<any>()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 
-const loading = ref(true)
+const loading = ref(false)
 
 const listType = computed(() => (
   [
@@ -112,63 +116,63 @@ const headers = computed(() => (
 
 const items: IItem[] = [
   {
-    date: formatDate(new Date().toString()),
+    date: '05.02.2024',
     sum: '2534',
     type: 'buy',
     status: 'success',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '05.02.2024',
     sum: '32453',
     type: 'buy',
     status: 'reject',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '05.02.2024',
     sum: '3453',
     type: 'buy',
     status: 'pending',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
-    sum: '25243523434',
+    date: '05.02.2024',
+    sum: '252437',
     type: 'subscribe',
     status: 'pending',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '06.02.2024',
     sum: '25327624',
     type: 'comeback',
     status: 'success',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '06.02.2024',
     sum: '13456',
     type: 'subscribe',
     status: 'reject',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '06.02.2024',
     sum: '554543',
     type: 'subscribe',
     status: 'success',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '07.02.2024',
     sum: '146363',
     type: 'buy',
     status: 'pending',
     id: Date.now().toString()
   },
   {
-    date: formatDate(new Date().toString()),
+    date: '07.02.2024',
     sum: '10130000',
     type: 'comeback',
     status: 'reject',

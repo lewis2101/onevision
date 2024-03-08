@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "chart.js": "^4.4.2",
     "js-levenshtein": "^1.1.6",
     "roboto-fontface": "*",
     "string-similarity": "^4.0.4",

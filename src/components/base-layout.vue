@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <slot name="header"/>
-      <div style="padding: 0 20px;">
+      <div style="padding: 20px;">
         <slot/>
       </div>
     </v-main>
