@@ -15,14 +15,12 @@ const props = defineProps<{
 
 const chart = ref<any>(null)
 
-const getItems = computed(() => {
-  return props.items
-})
+const getItems = computed(() => props.items)
 
 const labels = computed(() => {
   const uniqueDates = new Set();
-  getItems.value.forEach(item => {
-    uniqueDates.add(item.date);
+  getItems.value.forEach(i => {
+    uniqueDates.add(i.date);
   });
   return Array.from(uniqueDates);
 })

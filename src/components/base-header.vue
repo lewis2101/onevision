@@ -39,20 +39,22 @@ const {t} = useI18n()
 
 const getTitle = computed(() => t(titleOfRoute[route.name.toString()]))
 
-const routes = [
-  {
-    pathName: `/${getLocale()}`,
-    title: t('header.main-title')
-  },
-  {
-    pathName: `/${getLocale()}/diagram`,
-    title: t('header.diagram-title')
-  },
-  {
-    pathName: `/${getLocale()}/report`,
-    title: t('header.report-title')
-  },
-]
+const routes = computed(() => (
+    [
+      {
+        pathName: `/${getLocale()}`,
+        title: t('header.main-title')
+      },
+      {
+        pathName: `/${getLocale()}/diagram`,
+        title: t('header.diagram-title')
+      },
+      {
+        pathName: `/${getLocale()}/report`,
+        title: t('header.report-title')
+      },
+    ]
+))
 
 </script>
 
