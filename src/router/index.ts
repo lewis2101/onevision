@@ -7,8 +7,24 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:locale(ru|kk)',
-    name: 'main',
-    component: () => import('@/views/Main.vue')
+    component: () => import('@/components/base-layout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'main',
+        component: () => import('@/views/Main.vue')
+      },
+      {
+        path: 'diagram',
+        name: 'diagram',
+        component: () => import('@/views/Diagram.vue')
+      },
+      {
+        path: 'report',
+        name: 'report',
+        component: () => import('@/views/Report.vue')
+      }
+    ]
   }
 ]
 

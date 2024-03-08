@@ -1,6 +1,8 @@
 export default {
   header: {
-    title: 'История транзакции'
+    ['main-title']: 'История транзакции',
+    ['diagram-title']: 'График-диаграмма',
+    ['report-title']: 'Отчет',
   },
   table: {
     'date': 'Дата',

@@ -1,54 +1,42 @@
 <template>
-  <base-layout>
-    <template #header>
-      <base-header/>
-    </template>
-    <base-grafic ref="grafic" :items="sortedItems"/>
-    <div class="filter">
-      <v-select
+  <div class="filter">
+    <v-select
         style="max-width: 250px; width: 100%;"
         clearable
         :label="$t('table.type')"
         :items="listType"
         @click:clear="typeTransactionFilter = null"
-      >
-        <template #item="{ props, item }">
-          <v-list-item v-bind="props" @click="toFilterTypeTransaction(item.value)"></v-list-item>
-        </template>
-      </v-select>
-      <v-select
+    >
+      <template #item="{ props, item }">
+        <v-list-item v-bind="props" @click="toFilterTypeTransaction(item.value)"></v-list-item>
+      </template>
+    </v-select>
+    <v-select
         style="max-width: 250px; width: 100%;"
         clearable
         :label="$t('table.status')"
         :items="listStatus"
         @click:clear="statusFilter = null"
-      >
-        <template #item="{ props, item }">
-          <v-list-item v-bind="props" @click="toFilterStatus(item.value)"></v-list-item>
-        </template>
-      </v-select>
-    </div>
-    <base-table
+    >
+      <template #item="{ props, item }">
+        <v-list-item v-bind="props" @click="toFilterStatus(item.value)"></v-list-item>
+      </template>
+    </v-select>
+  </div>
+  <base-table
       :headers="headers"
       :items="sortedItems"
       :loading="loading"
-    />
-  </base-layout>
+  />
 </template>
 
 <script setup lang="ts">
-import BaseLayout from "@/components/base-layout.vue";
-import BaseHeader from "@/components/base-header.vue";
 import BaseTable from "@/components/base-table.vue";
-import {formatDate} from "@/helpers";
 import {useI18n} from "vue-i18n";
 import {computed, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
-import BaseGrafic from "@/components/base-grafic.vue";
 
 const {t} = useI18n()
-
-const grafic = ref<any>()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
@@ -56,62 +44,49 @@ const statusFilter = ref<IStatus | null>(null)
 const loading = ref(false)
 
 const listType = computed(() => (
-  [
-    {
-      title: t('type.buy'),
-      value: 'buy',
-    },
-    {
-      title: t('type.comeback'),
-      value: 'comeback',
-    },
-    {
-      title: t('type.subscribe'),
-      value: 'subscribe',
-    }
-  ]
+    [
+      {
+        title: t('type.buy'),
+        value: 'buy',
+      },
+      {
+        title: t('type.comeback'),
+        value: 'comeback',
+      },
+      {
+        title: t('type.subscribe'),
+        value: 'subscribe',
+      }
+    ]
 ))
 
 const listStatus = computed(() => (
-  [
-    {
-      title: t('status.success'),
-      value: 'success',
-    },
-    {
-      title: t('status.reject'),
-      value: 'reject',
-    },
-    {
-      title: t('status.pending'),
-      value: 'pending',
-    }
-  ]
+    [
+      {
+        title: t('status.success'),
+        value: 'success',
+      },
+      {
+        title: t('status.reject'),
+        value: 'reject',
+      },
+      {
+        title: t('status.pending'),
+        value: 'pending',
+      }
+    ]
 ))
 
 watch(typeTransactionFilter, value => sort())
 watch(statusFilter, value => sort())
 
-const toFilterStatus = (value: IStatus) => statusFilter.value = value
-const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
-
-const sort = () => {
-  if (typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
-
-  sortedItems.value = items.filter(i => {
-    if (typeTransactionFilter.value && statusFilter.value) return i.type === typeTransactionFilter.value && i.status === statusFilter.value
-    if (typeTransactionFilter.value) return i.type === typeTransactionFilter.value
-    if (statusFilter.value) return i.status === statusFilter.value
-  })
-}
-
 const headers = computed(() => (
-  [
-    {title: t('table.date'), value: 'date', sortable: true},
-    {title: t('table.sum'), value: 'sum', sortable: true},
-    {title: t('table.type'), value: 'type', sortable: true},
-    {title: t('table.status'), value: 'status', sortable: true}
-  ]
+    [
+      {title: t('table.date'), value: 'date', sortable: true},
+      {title: t('table.sum'), value: 'sum', sortable: true},
+      {title: t('table.type'), value: 'type', sortable: true},
+      {title: t('table.status'), value: 'status', sortable: true}
+    ]
 ))
 
 const items: IItem[] = [
@@ -180,6 +155,22 @@ const items: IItem[] = [
   },
 ]
 const sortedItems = ref(items)
+
+const toFilterStatus = (value: IStatus) => statusFilter.value = value
+const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
+
+const sort = () => {
+  if (typeTransactionFilter.value === null && statusFilter.value === null) {
+    sortedItems.value = items;
+    return;
+  }
+
+  sortedItems.value = items.filter(item => {
+    const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
+    const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
+    return typeMatch && statusMatch;
+  });
+};
 
 </script>
 

@@ -1,6 +1,8 @@
 export default {
   header: {
-    title: 'Транзакция тарихы'
+    ['main-title']: 'Транзакция тарихы',
+    ['diagram-title']: 'График-диаграмма',
+    ['report-title']: 'Отчет',
   },
   table: {
     'date': 'Уақыт күні',

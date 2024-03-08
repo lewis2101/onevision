@@ -1,15 +1,16 @@
 <template>
   <v-app>
     <v-main>
-      <slot name="header"/>
+      <base-header/>
       <div style="padding: 20px;">
-        <slot/>
+        <router-view/>
       </div>
     </v-main>
   </v-app>
 </template>
 
 <script setup lang="ts">
+import BaseHeader from "@/components/base-header.vue";
 
 </script>
 
