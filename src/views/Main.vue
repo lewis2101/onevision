@@ -41,7 +41,7 @@ import BaseHeader from "@/components/base-header.vue";
 import BaseTable from "@/components/base-table.vue";
 import {formatDate} from "@/helpers";
 import {useI18n} from "vue-i18n";
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 
 const {t} = useI18n()
@@ -50,12 +50,6 @@ const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 
 const loading = ref(true)
-
-onMounted(() => {
-  setTimeout(() => {
-    loading.value = false
-  }, 1500)
-})
 
 const listType = computed(() => (
   [
@@ -91,35 +85,20 @@ const listStatus = computed(() => (
   ]
 ))
 
-watch(typeTransactionFilter, value => {
-  if(value === null) sort()
-})
+watch(typeTransactionFilter, value => sort())
+watch(statusFilter, value => sort())
 
-watch(statusFilter, value => {
-  if(value === null) sort()
-})
-const toFilterStatus = (value: IStatus) => {
-  statusFilter.value = value
-  sort()
-}
-
-const toFilterTypeTransaction = (value: IType) => {
-  typeTransactionFilter.value = value
-  sort()
-}
+const toFilterStatus = (value: IStatus) => statusFilter.value = value
+const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
 
 const sort = () => {
-  loading.value = true
-  setTimeout(() => {
-    loading.value = false
-    if(typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
+  if (typeTransactionFilter.value === null && statusFilter.value === null) return sortedItems.value = items
 
-    sortedItems.value = items.filter(i => {
-      if (typeTransactionFilter.value && statusFilter.value) return i.type === typeTransactionFilter.value && i.status === statusFilter.value
-      if(typeTransactionFilter.value) return i.type === typeTransactionFilter.value
-      if(statusFilter.value) return i.status === statusFilter.value
-    })
-  }, 500)
+  sortedItems.value = items.filter(i => {
+    if (typeTransactionFilter.value && statusFilter.value) return i.type === typeTransactionFilter.value && i.status === statusFilter.value
+    if (typeTransactionFilter.value) return i.type === typeTransactionFilter.value
+    if (statusFilter.value) return i.status === statusFilter.value
+  })
 }
 
 const headers = computed(() => (
