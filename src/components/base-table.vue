@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="getItems">
     <v-data-table
         page-text=""
         :show-current-page="true"
         items-per-page-text="Количество"
         no-data-text="Ничего не найдено"
         :items-per-page-options="perPageOptions"
-        :items="items"
+        :items="getItems"
         :headers="headers"
         :loading="getLoading"
     >
@@ -51,21 +51,23 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import {IStatus} from "@/types/table";
+import {IItem, IStatus} from "@/types/table";
 import {formatSum} from "@/helpers";
 
 const props = defineProps<{
-  items: Array<Record<string, string>>,
+  items: IItem[] | null,
   headers: Array<Record<string, string | boolean>>,
   loading: boolean
 }>()
+
+const getItems = computed(() => props.items)
 
 const getLoading = computed(() => props.loading)
 
 const perPageOptions = computed(() => {
   const options = [10]
-  if (props.items.length > 20) options.push(20)
-  if (props.items.length > 30) options.push(30)
+  if (getItems.value.length > 20) options.push(20)
+  if (getItems.value.length > 30) options.push(30)
   return options
 })
 

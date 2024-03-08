@@ -29,19 +29,19 @@
       :loading="loading"
   />
 </template>
-
 <script setup lang="ts">
 import BaseTable from "@/components/base-table.vue";
 import {useI18n} from "vue-i18n";
-import {computed, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
+import {getHistory} from "@/api/application";
 
 const {t} = useI18n()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 
-const loading = ref(false)
+const loading = ref(true)
 
 const listType = computed(() => (
     [
@@ -77,8 +77,8 @@ const listStatus = computed(() => (
     ]
 ))
 
-watch(typeTransactionFilter, value => sort())
-watch(statusFilter, value => sort())
+watch(typeTransactionFilter, () => sort())
+watch(statusFilter, () => sort())
 
 const headers = computed(() => (
     [
@@ -89,88 +89,41 @@ const headers = computed(() => (
     ]
 ))
 
-const items: IItem[] = [
-  {
-    date: '05.02.2024',
-    sum: '2534',
-    type: 'buy',
-    status: 'success',
-    id: Date.now().toString()
-  },
-  {
-    date: '05.02.2024',
-    sum: '32453',
-    type: 'buy',
-    status: 'reject',
-    id: Date.now().toString()
-  },
-  {
-    date: '05.02.2024',
-    sum: '3453',
-    type: 'buy',
-    status: 'pending',
-    id: Date.now().toString()
-  },
-  {
-    date: '05.02.2024',
-    sum: '252437',
-    type: 'subscribe',
-    status: 'pending',
-    id: Date.now().toString()
-  },
-  {
-    date: '06.02.2024',
-    sum: '25327624',
-    type: 'comeback',
-    status: 'success',
-    id: Date.now().toString()
-  },
-  {
-    date: '06.02.2024',
-    sum: '13456',
-    type: 'subscribe',
-    status: 'reject',
-    id: Date.now().toString()
-  },
-  {
-    date: '06.02.2024',
-    sum: '554543',
-    type: 'subscribe',
-    status: 'success',
-    id: Date.now().toString()
-  },
-  {
-    date: '07.02.2024',
-    sum: '146363',
-    type: 'buy',
-    status: 'pending',
-    id: Date.now().toString()
-  },
-  {
-    date: '07.02.2024',
-    sum: '10130000',
-    type: 'comeback',
-    status: 'reject',
-    id: Date.now().toString()
-  },
-]
-const sortedItems = ref(items)
+const items = ref<IItem[] | null>(null)
+const sortedItems = ref<IItem[] | null>(null)
 
 const toFilterStatus = (value: IStatus) => statusFilter.value = value
 const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
 
-const sort = () => {
-  if (typeTransactionFilter.value === null && statusFilter.value === null) {
-    sortedItems.value = items;
-    return;
-  }
+const sort = async () => {
+  if (typeTransactionFilter.value === null && statusFilter.value === null)  sortedItems.value = items.value
 
-  sortedItems.value = items.filter(item => {
+  sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
     const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
     return typeMatch && statusMatch;
   });
 };
+
+const fetchData = async () => {
+  try {
+    const {data}: { data: IItem[] } = await getHistory()
+    items.value = data
+    sortedItems.value = data
+  } catch(e: any) {
+    console.log(e)
+    throw e
+  }
+}
+
+onMounted(async () => {
+  try {
+    await fetchData()
+    loading.value = false
+  } catch (e: any) {
+    console.log(e)
+  }
+})
 
 </script>
 
