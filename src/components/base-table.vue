@@ -47,6 +47,9 @@
       </v-card>
     </v-dialog>
   </div>
+  <div class="container" v-else>
+    <v-skeleton-loader type="list-item-avatar" v-for="item in 10"></v-skeleton-loader>
+  </div>
 </template>
 
 <script setup lang="ts">

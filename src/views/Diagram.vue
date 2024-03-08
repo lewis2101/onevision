@@ -4,6 +4,7 @@
         v-if="items"
         :items="items"
     />
+    <v-skeleton-loader class="skeleton" v-else type="card"></v-skeleton-loader>
   </div>
 </template>
 
@@ -27,5 +28,8 @@ onMounted(async() => {
 </script>
 
 <style lang="scss" scoped>
-
+.skeleton {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 </style>
