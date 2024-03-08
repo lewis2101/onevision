@@ -59,7 +59,11 @@ import {formatSum} from "@/helpers";
 
 const props = defineProps<{
   items: IItem[] | null,
-  headers: Array<Record<string, string | boolean>>,
+  headers: Array<{
+    title: string,
+    value: string,
+    sortable: boolean
+  }>,
   loading: boolean
 }>()
 

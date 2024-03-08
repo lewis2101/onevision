@@ -1,27 +1,17 @@
 <template>
   <div class="filter">
-    <v-select
-        style="max-width: 250px; width: 100%;"
-        clearable
-        :label="$t('table.type')"
-        :items="listType"
-        @click:clear="typeTransactionFilter = null"
-    >
-      <template #item="{ props, item }">
-        <v-list-item v-bind="props" @click="toFilterTypeTransaction(item.value)"></v-list-item>
-      </template>
-    </v-select>
-    <v-select
-        style="max-width: 250px; width: 100%;"
-        clearable
-        :label="$t('table.status')"
-        :items="listStatus"
-        @click:clear="statusFilter = null"
-    >
-      <template #item="{ props, item }">
-        <v-list-item v-bind="props" @click="toFilterStatus(item.value)"></v-list-item>
-      </template>
-    </v-select>
+    <select-filter
+      :title="$t('table.type')"
+      :list="listType"
+      @clear="typeTransactionFilter = null"
+      @filter="toFilterTypeTransaction"
+    />
+    <select-filter
+      :title="$t('table.status')"
+      :list="listStatus"
+      @clear="statusFilter = null"
+      @filter="toFilterStatus"
+    />
   </div>
   <base-table
       :headers="headers"
@@ -35,6 +25,7 @@ import {useI18n} from "vue-i18n";
 import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 import {getHistory} from "@/api/application";
+import SelectFilter from "@/components/select-filter.vue";
 
 const {t} = useI18n()
 

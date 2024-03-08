@@ -14,5 +14,6 @@ declare module 'vue' {
     Locale: typeof import('./src/components/locale.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectFilter: typeof import('./src/components/select-filter.vue')['default']
   }
 }
