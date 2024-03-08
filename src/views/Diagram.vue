@@ -1,8 +1,17 @@
 <template>
   <div>
+    <div class="filter">
+      <select-filter
+        :title="$t('table.type')"
+        :list="listType"
+        @clear="currentTypeTransaction = null"
+        @filter="setTypeTransaction"
+      />
+    </div>
     <base-grafic
         v-if="items"
         :items="items"
+        :current-type="currentTypeTransaction"
     />
     <v-skeleton-loader class="skeleton" v-else type="card"></v-skeleton-loader>
   </div>
@@ -10,11 +19,20 @@
 
 <script setup lang="ts">
 import BaseGrafic from '@/components/base-grafic.vue';
-import {IItem} from '@/types/table';
-import {onMounted, ref} from 'vue';
+import {IItem, IType} from '@/types/table';
+import {computed, onMounted, ref} from 'vue';
 import {getHistory} from "@/api/application";
+import SelectFilter from "@/components/select-filter.vue";
+import {filterType} from "@/types/filter";
+import {useI18n} from "vue-i18n";
 
+const {t} = useI18n()
 const items = ref<IItem[] | null>(null)
+const currentTypeTransaction = ref<IType | null>(null)
+
+const setTypeTransaction = (value: IType) => currentTypeTransaction.value = value
+
+const listType = computed(() => filterType(t))
 
 onMounted(async() => {
   try {
@@ -31,5 +49,16 @@ onMounted(async() => {
 .skeleton {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.filter {
+  margin: 0 auto;
+  padding-top: 20px;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: end;
+  gap: 10px;
 }
 </style>

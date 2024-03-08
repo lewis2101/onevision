@@ -26,6 +26,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
+import {filterStatus, filterType} from "@/types/filter";
 
 const {t} = useI18n()
 
@@ -34,39 +35,9 @@ const statusFilter = ref<IStatus | null>(null)
 
 const loading = ref(true)
 
-const listType = computed(() => (
-    [
-      {
-        title: t('type.buy'),
-        value: 'buy',
-      },
-      {
-        title: t('type.comeback'),
-        value: 'comeback',
-      },
-      {
-        title: t('type.subscribe'),
-        value: 'subscribe',
-      }
-    ]
-))
+const listType = computed(() => filterType(t))
 
-const listStatus = computed(() => (
-    [
-      {
-        title: t('status.success'),
-        value: 'success',
-      },
-      {
-        title: t('status.reject'),
-        value: 'reject',
-      },
-      {
-        title: t('status.pending'),
-        value: 'pending',
-      }
-    ]
-))
+const listStatus = computed(() => filterStatus(t))
 
 watch(typeTransactionFilter, () => sort())
 watch(statusFilter, () => sort())

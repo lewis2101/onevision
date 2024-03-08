@@ -6,18 +6,26 @@
 
 <script setup lang="ts">
 import Chart from 'chart.js/auto'
-import {computed, onMounted, ref, watch} from "vue";
-import {IItem, IStatus} from "@/types/table";
+import {computed, onMounted, watch} from "vue";
+import {IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
 
 const props = defineProps<{
-  items: IItem[] | null
+  items: IItem[] | null,
+  currentType: IType
 }>()
 
 const {t} = useI18n()
-const chart = ref<any>(null)
+let chart = null
 
 const getItems = computed(() => props.items)
+const getCurrentType = computed(() => props.currentType)
+
+watch(getCurrentType, () => {
+  chart.data.datasets = []
+  chart.data.datasets = dataChart.value.datasets
+  chart.update()
+})
 
 const labels = computed(() => {
   const uniqueDates = new Set();
@@ -35,7 +43,8 @@ const calculateSum = (items: IItem[], status: IStatus) => {
 
   labels.value.forEach((i, idx) => {
     items.forEach(j => {
-      if (i === j.date && j.status === status) calculatedArray[idx] += Number(j.sum)
+      if (i === j.date && j.status === status || getCurrentType.value === j.type)
+        calculatedArray[idx] += +j.sum
     })
   })
   return calculatedArray
@@ -90,13 +99,7 @@ const draw = () => {
   if (!myChart) return
   const ctx = myChart.getContext('2d')
 
-  chart.value = new Chart(
-      ctx,
-      {
-        type: 'line',
-        data: dataChart.value
-      }
-  )
+  chart = new Chart(ctx, { type: 'line', data: dataChart.value })
 }
 
 onMounted(() => {
