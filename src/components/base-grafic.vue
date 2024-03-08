@@ -10,7 +10,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {IItem, IStatus} from "@/types/table";
 
 const props = defineProps<{
-  items: IItem[]
+  items: IItem[] | null
 }>()
 
 const chart = ref<any>(null)
