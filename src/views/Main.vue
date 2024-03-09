@@ -65,9 +65,6 @@ const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = 
 
 const sort = async () => {
   if(!items.value) return
-  if (typeTransactionFilter.value === null
-    && statusFilter.value === null &&
-    filterDate.value === null)  sortedItems.value = items.value
 
   const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 
