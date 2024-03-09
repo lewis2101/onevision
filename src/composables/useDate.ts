@@ -1,15 +1,15 @@
 import dayjs from "dayjs";
 import {IItem, IStatus} from '@/types/table';
 
-export const getDatesInRange = (startDate: string, endDate: string) => {
-  let dates = []
-  let currentDate = new Date(startDate)
-  const endCurrentDate = new Date(endDate)
-  while (currentDate <= endCurrentDate) {
-    dates.push(new Date(currentDate))
-    currentDate.setDate(currentDate.getDate() + 1)
+export const getDatesInRange = (startDate: Date, endDate: Date) => {
+  let dates = [];
+  let currentDate = new Date(startDate.getTime()); // Create a new Date object
+  const endCurrentDate = new Date(endDate.getTime()); // Create a new Date object
+  while (currentDate.getTime() <= endCurrentDate.getTime()) { // Compare numeric values
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
   }
-  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY'))
+  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY')); // Format dates using dayjs
   return dates;
 }
 
