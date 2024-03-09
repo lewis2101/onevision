@@ -1,9 +1,12 @@
-import {readonly} from "vue";
+import {readonly, ref} from "vue";
 
-export default function () {
-  let modal = false
+const modal = ref(false)
 
-  return {
-    modal
-  }
+const show = () => modal.value = true
+const hide = () => modal.value = false
+
+export default {
+  show,
+  hide,
+  modal: readonly(modal)
 }

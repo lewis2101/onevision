@@ -14,7 +14,7 @@
         <v-btn
           class="ms-auto"
           text="Ok"
-          @click="dialog = false"
+          @click="modal = false"
         ></v-btn>
       </template>
     </v-card>
@@ -22,19 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
-
-const dialog = ref(true)
+import {computed} from "vue";
+import error from '@/composables/useError'
 
 const props = defineProps<{
   modelValue: boolean
 }>()
 
-const emit = defineEmits(['update:modelValue'])
-
 const modal = computed({
   get: () => props.modelValue,
-  set: e => emit('update:modelValue', e)
+  set: e => !e ? error.hide() : error.show()
 })
 
 </script>

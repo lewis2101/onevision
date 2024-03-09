@@ -2,8 +2,15 @@ import axios from "axios";
 import error from '@/composables/useError'
 
 export const useFetch = () => {
-  error().modal = true
-    return axios.create({
+    const instance = axios.create({
         baseURL: 'https://onevision-api.vercel.app/api',
     })
+  instance.interceptors.response.use(
+    (value) => Promise.resolve(value),
+    (value) => {
+        error.show()
+        throw value
+    }
+  )
+  return instance
 }
