@@ -11,10 +11,13 @@ import {IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
 import {formatDate} from "@/helpers";
+import dayjs from "dayjs";
+import {calculateSum, getDatesInRange} from "@/composables/useDate";
 
 const props = defineProps<{
   items: IItem[] | null,
-  currentType: IType
+  currentType: IType,
+  dateRange: Array<string> | null
 }>()
 
 const {t} = useI18n()
@@ -23,80 +26,58 @@ let chart = null
 
 const getItems = computed(() => props.items)
 const getCurrentType = computed(() => props.currentType)
-
-watch(getCurrentType, () => render())
-watch(() => route.params.locale, () => render())
-
 const labels = computed(() => {
-  const uniqueDates = new Set();
-  getItems.value.forEach(i => {
-    uniqueDates.add(i.date);
-  });
-  return Array.from(uniqueDates);
+  if(props.dateRange === null) return []
+  return getDatesInRange(new Date(props.dateRange[0]), new Date(props.dateRange[1]))
 })
-
-const calculateSum = (items: IItem[], status: IStatus) => {
-  if (items.length === 0) return []
-
-  const calculatedArray = JSON.parse(JSON.stringify(labels.value))
-  calculatedArray.fill(0)
-
-  labels.value.forEach((i, idx) => {
-    items.forEach(j => {
-      if (i === j.date && j.status === status || getCurrentType.value === j.type)
-        calculatedArray[idx] += +j.sum
-    })
-  })
-  return calculatedArray
-}
 
 const successItems = computed(() => {
   if (getItems.value.length === 0) return []
-  return calculateSum(getItems.value, 'success')
+  return calculateSum(getItems.value, 'success', labels.value, getCurrentType.value)
 })
 
 const pendingItems = computed(() => {
   if (getItems.value.length === 0) return []
-  return calculateSum(getItems.value, 'pending')
+  return calculateSum(getItems.value, 'pending', labels.value, getCurrentType.value)
 })
 
 const rejectItems = computed(() => {
   if (getItems.value.length === 0) return []
-  return calculateSum(getItems.value, 'reject')
+  return calculateSum(getItems.value, 'reject', labels.value, getCurrentType.value)
 })
 
 const dataChart = computed(() => (
-    {
-      labels: labels.value.map(i => formatDate(i)),
-      datasets: [
-        {
-          label: t('status.success'),
-          data: successItems.value,
-          backgroundColor: 'green',
-          borderWidth: 1,
-          borderColor: 'green'
-        },
-        {
-          label: t('status.reject'),
-          data: rejectItems.value,
-          backgroundColor: 'red',
-          borderWidth: 1,
-          borderColor: 'red'
-        },
-        {
-          label: t('status.pending'),
-          data: pendingItems.value,
-          backgroundColor: 'yellow',
-          borderWidth: 1,
-          borderColor: 'yellow'
-        }
-      ],
-    }
+  {
+    labels: labels.value,
+    datasets: [
+      {
+        label: t('status.success'),
+        data: successItems.value,
+        backgroundColor: 'green',
+        borderWidth: 1,
+        borderColor: 'green'
+      },
+      {
+        label: t('status.reject'),
+        data: rejectItems.value,
+        backgroundColor: 'red',
+        borderWidth: 1,
+        borderColor: 'red'
+      },
+      {
+        label: t('status.pending'),
+        data: pendingItems.value,
+        backgroundColor: 'yellow',
+        borderWidth: 1,
+        borderColor: 'yellow'
+      }
+    ],
+  }
 ))
 
 const render = () => {
-  chart.data.datasets = []
   chart.data.datasets = dataChart.value.datasets
+  chart.data.labels = dataChart.value.labels
   chart.update()
 }
 
@@ -105,8 +86,12 @@ const draw = () => {
   if (!myChart) return
   const ctx = myChart.getContext('2d')
 
-  chart = new Chart(ctx, { type: 'line', data: dataChart.value })
+  chart = new Chart(ctx, {type: 'line', data: dataChart.value})
 }
+
+watch(getCurrentType, () => render())
+watch(labels, () => render())
+watch(() => route.params.locale, () => render())
 
 onMounted(() => {
   draw()
