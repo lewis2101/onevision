@@ -15,8 +15,10 @@
 <!--    <calendar v-model="filterDate"/>-->
   </div>
   <div class="filter">
+    <div>asd</div>
     <input type="date" v-model="filterStartDate">
     <input type="date" v-model="filterEndDate">
+    <div>asd</div>
   </div>
   <base-table
       :headers="headers"
