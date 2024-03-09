@@ -12,8 +12,11 @@
       @clear="statusFilter = null"
       @filter="toFilterStatus"
     />
-    <calendar v-model="filterDate"/>
-    {{ filterDate }}
+<!--    <calendar v-model="filterDate"/>-->
+  </div>
+  <div class="filter">
+    <input type="date" v-model="filterStartDate">
+    <input type="date" v-model="filterEndDate">
   </div>
   <base-table
       :headers="headers"
@@ -32,12 +35,14 @@ import {filterStatus, filterType} from "@/types/filter";
 import Calendar from "@/components/calendar.vue";
 import {getDatesInRange, getLastMonthDate} from "@/composables/useDate";
 import dayjs from "dayjs";
+import {formatDate} from "@/helpers";
 
 const {t} = useI18n()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
-const filterDate = ref<string[] |null>(null)
+const filterStartDate = ref<string |null>(null)
+const filterEndDate = ref<string |null>(null)
 
 const loading = ref(true)
 
@@ -47,7 +52,8 @@ const listStatus = computed(() => filterStatus(t))
 
 watch(typeTransactionFilter, () => sort())
 watch(statusFilter, () => sort())
-watch(filterDate, () => sort())
+watch(filterStartDate, () => sort())
+watch(filterEndDate, () => sort())
 
 const headers = computed(() => (
     [
@@ -67,12 +73,14 @@ const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = 
 const sort = async () => {
   if(!items.value) return
 
-  const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
+  const startDate = formatDate(filterStartDate.value)
+  const endDate = formatDate(filterEndDate.value)
+  const dates = getDatesInRange(new Date(startDate), new Date(endDate))
 
   sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
     const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
-    const datesMatch = filterDate.value ? dates.includes(item.date) : true
+    const datesMatch = startDate && endDate ? dates.includes(item.date) : true
     return typeMatch && statusMatch && datesMatch;
   });
 };
@@ -89,10 +97,10 @@ const fetchData = async () => {
 }
 
 onMounted(async () => {
-  filterDate.value = [
-    dayjs(getLastMonthDate(new Date())).format('MM.DD.YYYY'),
-    dayjs(new Date()).format('MM.DD.YYYY')
-  ]
+  // filterDate.value = [
+  //   dayjs(getLastMonthDate(new Date())).format('MM.DD.YYYY'),
+  //   dayjs(new Date()).format('MM.DD.YYYY')
+  // ]
   try {
     await fetchData()
     loading.value = false
