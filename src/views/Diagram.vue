@@ -7,16 +7,7 @@
         @clear="currentTypeTransaction = null"
         @filter="setTypeTransaction"
       />
-      <VueDatePicker
-        v-model="filterDate"
-        :clearable="false"
-        class="calendar"
-        select-text="Выбрать"
-        cancel-text="Отмена"
-        locale="ru"
-        date
-        range
-      />
+      <calendar v-model="filterDate"/>
     </div>
     <base-grafic
         v-if="items"
@@ -37,17 +28,13 @@ import SelectFilter from "@/components/select-filter.vue";
 import {filterType} from "@/types/filter";
 import {useI18n} from "vue-i18n";
 import dayjs from 'dayjs';
+import Calendar from "@/components/calendar.vue";
+import {getLastMonthDate} from "@/composables/useDate";
 
 const {t} = useI18n()
 const items = ref<IItem[] | null>(null)
 const currentTypeTransaction = ref<IType | null>(null)
 const filterDate = ref<Array<string> | null>(null)
-
-const getLastMonthDate = (date) => {
-  const lastMonthDate = new Date(date);
-  lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
-  return lastMonthDate;
-}
 
 const setTypeTransaction = (value: IType) => currentTypeTransaction.value = value
 
@@ -85,7 +72,4 @@ onMounted(async() => {
   align-items: end;
 }
 
-.calendar {
-  margin-bottom: 20px;
-}
 </style>

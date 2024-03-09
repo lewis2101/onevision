@@ -11,6 +11,7 @@ declare module 'vue' {
     BaseHeader: typeof import('./src/components/base-header.vue')['default']
     BaseLayout: typeof import('./src/components/base-layout.vue')['default']
     BaseTable: typeof import('./src/components/base-table.vue')['default']
+    Calendar: typeof import('./src/components/calendar.vue')['default']
     ErrorModal: typeof import('./src/components/error-modal.vue')['default']
     Locale: typeof import('./src/components/locale.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

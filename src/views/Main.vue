@@ -12,6 +12,7 @@
       @clear="statusFilter = null"
       @filter="toFilterStatus"
     />
+    <calendar v-model="filterDate"/>
   </div>
   <base-table
       :headers="headers"
@@ -27,11 +28,15 @@ import {IItem, IStatus, IType} from "@/types/table";
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
 import {filterStatus, filterType} from "@/types/filter";
+import Calendar from "@/components/calendar.vue";
+import {getDatesInRange, getLastMonthDate} from "@/composables/useDate";
+import dayjs from "dayjs";
 
 const {t} = useI18n()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
+const filterDate = ref<string[] |null>(null)
 
 const loading = ref(true)
 
@@ -41,6 +46,7 @@ const listStatus = computed(() => filterStatus(t))
 
 watch(typeTransactionFilter, () => sort())
 watch(statusFilter, () => sort())
+watch(filterDate, () => sort())
 
 const headers = computed(() => (
     [
@@ -58,12 +64,18 @@ const toFilterStatus = (value: IStatus) => statusFilter.value = value
 const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
 
 const sort = async () => {
-  if (typeTransactionFilter.value === null && statusFilter.value === null)  sortedItems.value = items.value
+  if(!items.value) return
+  if (typeTransactionFilter.value === null
+    && statusFilter.value === null &&
+    filterDate.value === null)  sortedItems.value = items.value
+
+  const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 
   sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
     const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
-    return typeMatch && statusMatch;
+    const datesMatch = filterDate.value ? dates.includes(item.date) : true
+    return typeMatch && statusMatch && datesMatch;
   });
 };
 
@@ -79,6 +91,10 @@ const fetchData = async () => {
 }
 
 onMounted(async () => {
+  filterDate.value = [
+    dayjs(getLastMonthDate(new Date())).format('MM.DD.YYYY'),
+    dayjs(new Date()).format('MM.DD.YYYY')
+  ]
   try {
     await fetchData()
     loading.value = false
@@ -99,5 +115,6 @@ onMounted(async () => {
   justify-content: flex-end;
   align-items: end;
   gap: 10px;
+  flex-wrap: wrap;
 }
 </style>

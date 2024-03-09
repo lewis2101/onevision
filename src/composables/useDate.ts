@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {IItem, IStatus} from "@/types/table";
+import {IItem, IStatus} from '@/types/table';
 
 export const getDatesInRange = (startDate: Date, endDate: Date) => {
   let dates = [];
@@ -24,4 +24,10 @@ export const calculateSum = (items: IItem[], status: IStatus, labels: string[], 
     }
   })
   return calculatedArray
+}
+
+export const getLastMonthDate = (date: Date) => {
+  const lastMonthDate = new Date(date);
+  lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
+  return lastMonthDate;
 }
