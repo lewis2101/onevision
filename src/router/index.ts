@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
+import {checkAuth} from "@/api/auth";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -6,7 +7,16 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/ru'
   },
   {
+    path: '/login',
+    component: () => import('@/views/Login.vue'),
+    name: 'login'
+  },
+  {
     path: '/:locale(ru|kk)',
+    beforeEnter: async (to, from, next) => {
+      await checkAuth()
+      next()
+    },
     component: () => import('@/components/base-layout.vue'),
     children: [
       {
