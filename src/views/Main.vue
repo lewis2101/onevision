@@ -14,7 +14,6 @@
     />
     <calendar v-model="filterDate"/>
   </div>
-  {{ new Date(filterDate[0]) }}
   <base-table
       :headers="headers"
       :items="sortedItems"
@@ -67,7 +66,9 @@ const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = 
 const sort = async () => {
   if(!items.value) return
 
-  const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
+  const startDate = new Date(filterDate.value[0])
+  const endDate = new Date(filterDate.value[1])
+  const dates = getDatesInRange(startDate, endDate)
 
   sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
