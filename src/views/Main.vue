@@ -66,13 +66,14 @@ const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = 
 const sort = async () => {
   if(!items.value) return
 
-  const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
+  // const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 
   sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
     const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
-    const datesMatch = filterDate.value ? dates.includes(item.date) : true
-    return typeMatch && statusMatch && datesMatch;
+    // const datesMatch = filterDate.value ? dates.includes(item.date) : true
+    return typeMatch && statusMatch;
+    // return typeMatch && statusMatch && datesMatch;
   });
 };
 
