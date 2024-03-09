@@ -42,8 +42,8 @@ const listType = computed(() => filterType(t))
 
 onMounted(async() => {
   filterDate.value = [
-    dayjs(getLastMonthDate(new Date())).format('MM.DD.YYYY'),
-    dayjs(new Date()).format('MM.DD.YYYY')
+    getLastMonthDate(new Date()).toString(),
+    new Date().toString()
   ]
   try {
     const { data }: { data: IItem[] } = await getHistory()

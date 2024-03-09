@@ -13,9 +13,6 @@
       @filter="toFilterStatus"
     />
     <calendar v-model="filterDate"/>
-    {{ filterDate }}
-    <br>
-    {{ list }}
   </div>
   <base-table
       :headers="headers"
@@ -40,7 +37,6 @@ const {t} = useI18n()
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 const filterDate = ref<string[] | null>(null)
-const list = ref<string[]>([])
 
 const loading = ref(true)
 
@@ -71,7 +67,7 @@ const sort = async () => {
   if(!items.value) return
 
   const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
-  list.value = dates
+
   sortedItems.value = items.value.filter(item => {
     const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
     const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
