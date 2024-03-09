@@ -9,6 +9,7 @@ import Chart from 'chart.js/auto'
 import {computed, onMounted, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
+import {useRoute} from "vue-router";
 
 const props = defineProps<{
   items: IItem[] | null,
@@ -16,16 +17,14 @@ const props = defineProps<{
 }>()
 
 const {t} = useI18n()
+const route = useRoute()
 let chart = null
 
 const getItems = computed(() => props.items)
 const getCurrentType = computed(() => props.currentType)
 
-watch(getCurrentType, () => {
-  chart.data.datasets = []
-  chart.data.datasets = dataChart.value.datasets
-  chart.update()
-})
+watch(getCurrentType, () => render())
+watch(() => route.params.locale, () => render())
 
 const labels = computed(() => {
   const uniqueDates = new Set();
@@ -93,6 +92,12 @@ const dataChart = computed(() => (
       ],
     }
 ))
+
+const render = () => {
+  chart.data.datasets = []
+  chart.data.datasets = dataChart.value.datasets
+  chart.update()
+}
 
 const draw = () => {
   const myChart = document.getElementById('myChart') as HTMLCanvasElement
