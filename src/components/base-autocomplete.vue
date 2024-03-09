@@ -17,7 +17,7 @@ import {IItem} from "@/types/table";
 const props = defineProps<{
   modelValue: string,
   title: string,
-  items: IItem[]
+  items: IItem[] | null,
   noDataText: string
 }>()
 
@@ -25,7 +25,7 @@ const focus = ref(false)
 
 const emit = defineEmits(['update:modelValue'])
 
-const getItems = computed(() => props.items)
+const getItems = computed(() => props.items ? props.items : [])
 
 const sortedSearchItems = computed(() => {
   if(getItems.value === null) return []
