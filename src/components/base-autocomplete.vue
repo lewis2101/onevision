@@ -16,7 +16,7 @@ import {ref} from "vue";
 const props = defineProps<{
   modelValue: string,
   title: string,
-  items: string[] | unknown[],
+  items: string[],
   noDataText: string
 }>()
 

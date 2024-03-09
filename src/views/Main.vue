@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import BaseTable from "@/components/base-table.vue";
 import {useI18n} from "vue-i18n";
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ComputedRef, onMounted, ref, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
@@ -72,7 +72,7 @@ const headers = computed(() => (
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
 
-const sortedSearchItems = computed(() => {
+const sortedSearchItems: ComputedRef<string[]> = computed(() => {
   if(sortedItems.value === null) return []
   const unique = new Set()
   sortedItems.value.forEach(i => {
