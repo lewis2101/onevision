@@ -1,5 +1,6 @@
 <template>
   <base-autocomplete
+    v-if="sortedItems !== null"
     v-model="search"
     :no-data-text="$t('search.non')"
     :title="$t('search.title')"
