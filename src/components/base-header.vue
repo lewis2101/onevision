@@ -18,6 +18,9 @@
           >
             <div class="item">{{ item.title }}</div>
           </v-list-item>
+          <v-list-item>
+            <div class="item exit" @click="logout">Выйти</div>
+          </v-list-item>
         </v-list>
       </v-menu>
       {{ getTitle }}
@@ -29,12 +32,13 @@
 <script setup lang="ts">
 import Locale from "@/components/locale.vue";
 import {computed} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import {titleOfRoute} from "@/locales/route-locale";
 import {getLocale} from "@/plugins/i18n";
 
 const route = useRoute()
+const router = useRouter()
 const {t} = useI18n()
 
 const getTitle = computed(() => t(titleOfRoute[route.name.toString()]))
@@ -56,10 +60,18 @@ const routes = computed(() => (
     ]
 ))
 
+const logout = () => {
+  localStorage.removeItem('token')
+  router.push({ name: 'login' })
+}
+
 </script>
 
 <style lang="scss" scoped>
 .item {
   cursor: pointer;
+}
+.exit {
+  color: red;
 }
 </style>
