@@ -12,7 +12,7 @@
     >
       <template #item="{ item }">
         <tr class="hoverable" @click="onRowClick(item)" :style="{ color: getLoading ? 'lightgray' : '' }">
-          <td>{{ item.date }}</td>
+          <td>{{ formatDate(item.date) }}</td>
           <td>{{ formatSum(item.sum) }}</td>
           <td>{{ $t(`type.${item.type}`) }}</td>
           <td>
@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {IItem, IStatus} from "@/types/table";
-import {formatSum, formatPhone} from "@/helpers";
+import {formatSum, formatPhone, formatDate} from "@/helpers";
 
 const props = defineProps<{
   items: IItem[] | null,
