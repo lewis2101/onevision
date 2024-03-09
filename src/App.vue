@@ -1,6 +1,7 @@
 <template>
   <router-view/>
   <error-modal v-model="modal"/>
+  {{ new Date() }}
 </template>
 
 <script setup lang="ts">
