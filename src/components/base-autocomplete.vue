@@ -4,25 +4,37 @@
     :auto-select-first="true"
     :no-data-text="$t('search.non')"
     :label="$t('search.title')"
-    :items="items"
+    :items="sortedSearchItems"
     @update:focused="(value) => focus = value"
     @update:search="model"
   >
   </v-autocomplete>
 </template>
 <script setup lang="ts">
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {IItem} from "@/types/table";
 
 const props = defineProps<{
   modelValue: string,
   title: string,
-  items: unknown[],
+  items: IItem[]
   noDataText: string
 }>()
 
 const focus = ref(false)
 
 const emit = defineEmits(['update:modelValue'])
+
+const getItems = computed(() => props.items)
+
+const sortedSearchItems = computed(() => {
+  if(getItems.value === null) return []
+  const unique = new Set()
+  getItems.value.forEach(i => {
+    unique.add(i.fullName)
+  })
+  return Array.from(unique)
+})
 
 const model = (value) => {
   if(focus.value) return emit('update:modelValue', value)

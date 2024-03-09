@@ -3,7 +3,7 @@
     v-model="search"
     :no-data-text="$t('search.non')"
     :title="$t('search.title')"
-    :items="sortedSearchItems"
+    :items="sortedItems"
   >
   </base-autocomplete>
   <div class="filter">
@@ -71,15 +71,6 @@ const headers = computed(() => (
 
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
-
-const sortedSearchItems = computed(() => {
-  if(sortedItems.value === null) return []
-  const unique = new Set()
-  sortedItems.value.forEach(i => {
-    unique.add(i.fullName)
-  })
-  return Array.from(unique)
-})
 
 const toFilterStatus = (value: IStatus) => statusFilter.value = value
 const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
