@@ -1,12 +1,12 @@
 <template>
   <div class="filter">
-    <v-autocomplete
-      @update:search="onSearch"
-      :clearable="true"
+    <base-autocomplete
+      v-model="search"
       :no-data-text="$t('search.non')"
-      :label="$t('search.title')"
+      :title="$t('search.title')"
       :items="sortedSearchItems"
-    ></v-autocomplete>
+    >
+    </base-autocomplete>
     <select-filter
       :title="$t('table.type')"
       :list="listType"
@@ -38,19 +38,16 @@ import {filterStatus, filterType} from "@/types/filter";
 import Calendar from "@/components/calendar.vue";
 import {getDatesInRange, getLastMonthDate} from "@/composables/useDate";
 import dayjs from "dayjs";
+import BaseAutocomplete from "@/components/base-autocomplete.vue";
 
 const {t} = useI18n()
 
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 const filterDate = ref<string[] | null>(null)
-const search = ref<string>('')
+const search = ref('')
 
-const onSearch = (value) => {
-  search.value = value
-  console.log(value)
-  sort()
-}
+watch(search, () => sort())
 
 const loading = ref(true)
 
