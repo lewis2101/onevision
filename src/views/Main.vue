@@ -13,6 +13,8 @@
       @filter="toFilterStatus"
     />
     <calendar v-model="filterDate"/>
+    {{ filterDate }}
+    <br>
     {{ list }}
   </div>
   <base-table
@@ -91,8 +93,8 @@ const fetchData = async () => {
 
 onMounted(async () => {
   filterDate.value = [
-    dayjs(getLastMonthDate(new Date())).format('MM.DD.YYYY'),
-    dayjs(new Date()).format('MM.DD.YYYY')
+    getLastMonthDate(new Date()).toString(),
+    new Date().toString()
   ]
   try {
     await fetchData()
