@@ -43,6 +43,7 @@
             <div>Номер: <a :href="`tel:${'7083795484'}`">{{ formatPhone('7083795484') }}</a></div>
             <div>Статус: {{ $t(`status.${currentItem.status}`) }}</div>
             <div>Тип: {{ $t(`type.${currentItem.type}`) }}</div>
+            <div>Дата: {{ currentItem.date }}</div>
           </div>
         </template>
         <template v-slot:actions>
