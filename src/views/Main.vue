@@ -1,12 +1,12 @@
 <template>
+  <base-autocomplete
+    v-model="search"
+    :no-data-text="$t('search.non')"
+    :title="$t('search.title')"
+    :items="sortedSearchItems"
+  >
+  </base-autocomplete>
   <div class="filter">
-    <base-autocomplete
-      v-model="search"
-      :no-data-text="$t('search.non')"
-      :title="$t('search.title')"
-      :items="sortedSearchItems"
-    >
-    </base-autocomplete>
     <select-filter
       :title="$t('table.type')"
       :list="listType"
@@ -127,7 +127,6 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .filter {
   margin: 0 auto;
-  padding-top: 20px;
   display: flex;
   max-width: 1200px;
   width: 100%;
