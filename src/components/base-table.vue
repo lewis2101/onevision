@@ -11,7 +11,7 @@
         :loading="getLoading"
     >
       <template #item="{ item }">
-        <tr class="hoverable" @click="onRowClick(item.id)" :style="{ color: getLoading ? 'lightgray' : '' }">
+        <tr class="hoverable" @click="onRowClick(item)" :style="{ color: getLoading ? 'lightgray' : '' }">
           <td>{{ item.date }}</td>
           <td>{{ formatSum(item.sum) }}</td>
           <td>{{ $t(`type.${item.type}`) }}</td>
@@ -32,10 +32,18 @@
     >
       <v-card
           max-width="400"
-          title="Транзакция"
+          min-width="300"
+          :title="`ID: ${currentItem.id}`"
       >
         <template #text>
-          {{ currentId }}
+          <div>
+            <div>ФИО: TEST</div>
+            <div>Сумма: {{ formatSum(currentItem.sum) }}₸</div>
+            <div>Город: Алматы</div>
+            <div>Номер: <a :href="`tel:${'7083795484'}`">{{ formatPhone('7083795484') }}</a></div>
+            <div>Статус: {{ $t(`status.${currentItem.status}`) }}</div>
+            <div>Тип: {{ $t(`type.${currentItem.type}`) }}</div>
+          </div>
         </template>
         <template v-slot:actions>
           <v-btn
@@ -55,7 +63,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {IItem, IStatus} from "@/types/table";
-import {formatSum} from "@/helpers";
+import {formatSum, formatPhone} from "@/helpers";
 
 const props = defineProps<{
   items: IItem[] | null,
@@ -79,7 +87,7 @@ const perPageOptions = computed(() => {
 })
 
 const modal = ref(false)
-const currentId = ref<null | string>(null)
+const currentItem = ref<null | IItem>(null)
 
 const colorMapper: Record<IStatus, string> = {
   'success': 'green',
@@ -87,11 +95,10 @@ const colorMapper: Record<IStatus, string> = {
   'reject': 'red'
 }
 
-const onRowClick = (id: string) => {
+const onRowClick = (value: IItem) => {
   if(getLoading.value) return
-  currentId.value = id
+  currentItem.value = value
   modal.value = true
-  // Handle row click event here
 }
 
 </script>
