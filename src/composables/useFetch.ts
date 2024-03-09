@@ -16,6 +16,7 @@ export const useFetch = () => {
         router.push({ name: 'login' })
         throw value
       }
+      if(value.response.status === 403) throw value
       error.show()
       throw value
     }

@@ -14,6 +14,7 @@
           :rules="rules"
           label="Пароль"
         ></v-text-field>
+        <div class="error" v-if="error">Неверные данные</div>
         <v-btn class="mt-2" type="submit" color="black" block :loading="loading">Авторизоваться</v-btn>
       </v-form>
     </v-sheet>
@@ -21,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from "vue";
+import {reactive, ref, watch} from "vue";
 import {IAuth} from "@/types/auth";
 import {auth} from "@/api/auth";
 import {useRouter} from "vue-router";
@@ -37,6 +38,9 @@ const form = reactive<IAuth>({
 })
 
 const loading = ref(false)
+const error = ref(false)
+
+watch(form, () => error.value = false)
 
 const rules =  [
   value => {
@@ -54,6 +58,7 @@ const submit = async () => {
     localStorage.setItem('token', token)
     await router.push('/')
   } catch (e: any) {
+    error.value = true
     console.log(e)
   } finally {
     loading.value = false
@@ -80,5 +85,9 @@ const submit = async () => {
   width: 100vw;
   display: flex;
   justify-content: center;
+}
+.error {
+  color: red;
+  text-align: center;
 }
 </style>
