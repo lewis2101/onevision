@@ -12,7 +12,7 @@
     >
       <template #item="{ item }">
         <tr class="hoverable" @click="onRowClick(item)" :style="{ color: getLoading ? 'lightgray' : '' }">
-          <td>{{ formatDate(item.date) }}</td>
+          <td>{{ item.date }}</td>
           <td>{{ formatSum(item.sum) }}</td>
           <td>{{ $t(`type.${item.type}`) }}</td>
           <td>
