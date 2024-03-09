@@ -4,8 +4,7 @@ import router from "@/router";
 
 export const useFetch = () => {
   const instance = axios.create({
-    // baseURL: 'https://onevision-api.vercel.app/api',
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'https://onevision-api.vercel.app/api',
     headers: {
       token: localStorage.getItem('token')
     }
