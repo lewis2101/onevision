@@ -19,5 +19,6 @@ export type IItem =  {
   sum: string,
   type: IType,
   status: IStatus,
+  fullName: string,
   id: string
 }

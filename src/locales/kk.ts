@@ -4,8 +4,13 @@ export default {
     ['diagram-title']: 'График-диаграмма',
     ['report-title']: 'Отчет',
   },
+  search: {
+    title: 'Поиск',
+    non: 'Ничего не найдено'
+  },
   table: {
     'date': 'Уақыт күні',
+    'name': 'ИЖН',
     'sum': 'Сомасы (₸)',
     'type': 'Транзакция түрі',
     'status': 'Статус'

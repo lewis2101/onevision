@@ -1,5 +1,12 @@
 <template>
   <div class="filter">
+    <v-autocomplete
+      @update:search="onSearch"
+      :clearable="true"
+      :no-data-text="$t('search.non')"
+      :label="$t('search.title')"
+      :items="sortedSearchItems"
+    ></v-autocomplete>
     <select-filter
       :title="$t('table.type')"
       :list="listType"
@@ -37,6 +44,13 @@ const {t} = useI18n()
 const typeTransactionFilter = ref<IType | null>(null)
 const statusFilter = ref<IStatus | null>(null)
 const filterDate = ref<string[] | null>(null)
+const search = ref<string>('')
+
+const onSearch = (value) => {
+  search.value = value
+  console.log(value)
+  sort()
+}
 
 const loading = ref(true)
 
@@ -51,6 +65,7 @@ watch(filterDate, () => sort())
 const headers = computed(() => (
     [
       {title: t('table.date'), value: 'date', sortable: true},
+      { title: t('table.name'), value: 'fullName', sortable: true },
       {title: t('table.sum'), value: 'sum', sortable: true},
       {title: t('table.type'), value: 'type', sortable: true},
       {title: t('table.status'), value: 'status', sortable: true}
@@ -59,6 +74,15 @@ const headers = computed(() => (
 
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
+
+const sortedSearchItems = computed(() => {
+  if(sortedItems.value === null) return []
+  const unique = new Set()
+  sortedItems.value.forEach(i => {
+    unique.add(i.fullName)
+  })
+  return Array.from(unique)
+})
 
 const toFilterStatus = (value: IStatus) => statusFilter.value = value
 const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
@@ -69,10 +93,11 @@ const sort = async () => {
   const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 
   sortedItems.value = items.value.filter(item => {
-    const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true;
-    const statusMatch = statusFilter.value ? item.status === statusFilter.value : true;
+    const typeMatch = typeTransactionFilter.value ? item.type === typeTransactionFilter.value : true
+    const statusMatch = statusFilter.value ? item.status === statusFilter.value : true
     const datesMatch = filterDate.value ? dates.includes(item.date) : true
-    return typeMatch && statusMatch && datesMatch;
+    const nameMatch = search.value ? item.fullName.toLowerCase().includes(search.value.toLowerCase()) : true
+    return typeMatch && statusMatch && datesMatch && nameMatch;
   });
 };
 
