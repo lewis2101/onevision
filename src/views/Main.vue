@@ -14,7 +14,7 @@
     />
     <calendar v-model="filterDate"/>
   </div>
-  {{ filterDate }}
+  {{ sortedItems }}
   <base-table
       :headers="headers"
       :items="sortedItems"
