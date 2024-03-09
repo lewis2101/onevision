@@ -10,6 +10,7 @@ import {computed, onMounted, watch} from "vue";
 import {IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
+import {formatDate} from "@/helpers";
 
 const props = defineProps<{
   items: IItem[] | null,
@@ -66,7 +67,7 @@ const rejectItems = computed(() => {
 
 const dataChart = computed(() => (
     {
-      labels: labels.value,
+      labels: labels.value.map(i => formatDate(i)),
       datasets: [
         {
           label: t('status.success'),
