@@ -9,7 +9,7 @@ export const getDatesInRange = (startDate: Date, endDate: Date) => {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY')); // Format dates using dayjs
+  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY').toString()); // Format dates using dayjs
   return dates;
 }
 

@@ -8,6 +8,8 @@
     locale="ru"
     date
     range
+    model-auto
+    focus-start-date
   />
 </template>
 <script setup lang="ts">
