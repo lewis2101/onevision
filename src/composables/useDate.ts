@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
 import {IItem, IStatus} from '@/types/table';
 
-export const getDatesInRange = (startDate: Date, endDate: Date) => {
-  let dates = [];
-  let currentDate = new Date(startDate);
-  while (currentDate <= endDate) {
-    dates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
+export const getDatesInRange = (startDate: string, endDate: string) => {
+  let dates = []
+  let currentDate = new Date(startDate)
+  const endCurrentDate = new Date(endDate)
+  while (currentDate <= endCurrentDate) {
+    dates.push(new Date(currentDate))
+    currentDate.setDate(currentDate.getDate() + 1)
   }
   dates = dates.map(i => dayjs(i).format('MM.DD.YYYY'))
   return dates;
