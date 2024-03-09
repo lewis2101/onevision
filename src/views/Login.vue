@@ -68,16 +68,17 @@ const submit = async () => {
 }
 .form {
   max-width: 400px;
+  height: fit-content;
   width: 100%;
   padding: 20px;
   border-radius: 10px;
 }
 .container {
+  padding-top: 20px;
   background: gray;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 </style>
