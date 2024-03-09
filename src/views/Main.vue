@@ -72,7 +72,7 @@ const headers = computed(() => (
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
 
-const sortedSearchItems: ComputedRef<string[]> = computed(() => {
+const sortedSearchItems = computed(() => {
   if(sortedItems.value === null) return []
   const unique = new Set()
   sortedItems.value.forEach(i => {
