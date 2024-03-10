@@ -36,11 +36,11 @@ const getItems: ComputedRef<IItem[] | null> = computed(() => props.items ? props
 
 const sortedSearchItems: ComputedRef<string[] | []> = computed(() => {
   if(getItems.value === null) return []
-  const unique = new Set()
+  const unique = new Set<string>()
   getItems.value.forEach(i => {
     unique.add(i.fullName)
   })
-  return Array.from(unique)
+  return Array.from(unique) as string[]
 })
 
 </script>
