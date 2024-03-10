@@ -1,7 +1,8 @@
 export const typeList = [
   'buy',
   'comeback',
-  'subscribe'
+  'subscribe',
+  'all'
 ] as const
 
 export type IType = typeof typeList[number]

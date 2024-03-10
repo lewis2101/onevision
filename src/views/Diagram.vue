@@ -42,7 +42,7 @@ import {getLastMonthDate} from "@/composables/useDate";
 
 const {t} = useI18n()
 const items = ref<IItem[] | null>(null)
-const currentTypeTransaction = ref<IType | 'all'>('buy')
+const currentTypeTransaction = ref<IType>('buy')
 const currentGraficType = ref<'line' | 'bar'>('line')
 const filterDate = ref<Array<string> | null>(null)
 
