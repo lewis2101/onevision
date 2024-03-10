@@ -2,23 +2,23 @@ export default {
   header: {
     ['main-title']: 'Транзакция тарихы',
     ['diagram-title']: 'График-диаграмма',
-    ['report-title']: 'Отчет',
+    ['report-title']: 'Есеп',
   },
   search: {
-    title: 'Поиск',
-    non: 'Ничего не найдено'
+    title: 'Іздеу',
+    non: 'Ештеңе табылған жоқ'
   },
   table: {
     'date': 'Уақыт күні',
-    'name': 'ИЖН',
+    'name': 'АТЖ',
     'sum': 'Сомасы (₸)',
     'type': 'Транзакция түрі',
     'status': 'Статус',
-    'grafic': 'Тип диаграммы'
+    'grafic': 'Диаграмма түрі'
   },
   grafic: {
-    'line': 'Линейный',
-    'bar': 'Вертикальный'
+    'line': 'Сызықтық',
+    'bar': 'Тік'
   },
   filter: 'Сүзгі',
   status: {
@@ -30,6 +30,6 @@ export default {
     buy: 'Сатып алу',
     comeback: 'Қайтару',
     subscribe: 'Жазылым',
-    all: 'Общая сводка'
+    all: 'Жалпы қорытынды'
   }
 }
