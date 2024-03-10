@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <canvas id="myChart"></canvas>
+    <div class="overflow-canvas">
+      <canvas id="myChart"></canvas>
+    </div>
   </div>
 </template>
 
@@ -101,8 +103,15 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .container {
-  max-width: 1000px;
-  width: 100%;
+  height: 100%;
+  width: 90vw;
   margin: 0 auto;
+  overflow: auto;
+}
+.overflow-canvas {
+  overflow: auto;
+  max-width: 1200px;
+  min-width: 1000px;
+  width: 100%;
 }
 </style>
