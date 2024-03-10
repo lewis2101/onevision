@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <base-header/>
-      <div style="padding: 20px;">
+      <div style="padding: 20px; background: white;">
         <router-view/>
       </div>
     </v-main>

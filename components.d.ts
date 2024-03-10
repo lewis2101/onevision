@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseAccordion: typeof import('./src/components/base-accordion.vue')['default']
     BaseAutocomplete: typeof import('./src/components/base-autocomplete.vue')['default']
     BaseGrafic: typeof import('./src/components/base-grafic.vue')['default']
     BaseHeader: typeof import('./src/components/base-header.vue')['default']

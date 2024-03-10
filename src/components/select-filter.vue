@@ -1,24 +1,26 @@
 <template>
   <v-select
+    v-model="model"
     class="select"
     clearable
     :label="getTitle"
     :items="list"
+    bg-color="white"
     @click:clear="$emit('clear')"
   >
     <template #item="{ props, item }">
       <v-list-item
         v-bind="props"
-        @click="$emit('filter', item.value)"
       ></v-list-item>
     </template>
   </v-select>
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, ComputedRef, WritableComputedRef} from "vue";
 
 const props = defineProps<{
+  modelValue: string | null,
   list: Array<{
     title: string,
     value: string
@@ -26,9 +28,14 @@ const props = defineProps<{
   title: string
 }>()
 
-const getTitle = computed(() => props.title)
+const getTitle: ComputedRef<string> = computed(() => props.title)
 
-defineEmits(['clear', 'filter'])
+const emit = defineEmits(['clear', 'update:modelValue'])
+
+const model: WritableComputedRef<string | null> = computed({
+  get: () => props.modelValue,
+  set: e => emit('update:modelValue', e)
+})
 
 </script>
 

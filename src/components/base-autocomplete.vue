@@ -5,6 +5,8 @@
     :no-data-text="$t('search.non')"
     :label="$t('search.title')"
     :items="sortedSearchItems"
+    :clearable="true"
+    bg-color="white"
     @update:focused="(value) => focus = value"
     @update:search="model"
   >
@@ -44,5 +46,4 @@ const model = (value) => {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

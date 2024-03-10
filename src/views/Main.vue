@@ -1,30 +1,34 @@
 <template>
-  <base-autocomplete
-    v-model="search"
-    :no-data-text="$t('search.non')"
-    :title="$t('search.title')"
-    :items="sortedItems"
-  >
-  </base-autocomplete>
+  <div class="autocomplete-container">
+    <base-autocomplete
+      v-model="search"
+      :no-data-text="$t('search.non')"
+      :title="$t('search.title')"
+      :items="sortedItems"
+      class="autocomplete"
+    />
+  </div>
   <div class="filter">
-    <select-filter
-      :title="$t('table.type')"
-      :list="listType"
-      @clear="typeTransactionFilter = null"
-      @filter="toFilterTypeTransaction"
-    />
-    <select-filter
-      :title="$t('table.status')"
-      :list="listStatus"
-      @clear="statusFilter = null"
-      @filter="toFilterStatus"
-    />
+    <base-accordion title="Фильтр">
+      <select-filter
+        v-model="typeTransactionFilter"
+        :title="$t('table.type')"
+        :list="listType"
+        @clear="typeTransactionFilter = null"
+      />
+      <select-filter
+        v-model="statusFilter"
+        :title="$t('table.status')"
+        :list="listStatus"
+        @clear="statusFilter = null"
+      />
+    </base-accordion>
     <calendar v-model="filterDate"/>
   </div>
   <base-table
-      :headers="headers"
-      :items="sortedItems"
-      :loading="loading"
+    :headers="headers"
+    :items="sortedItems"
+    :loading="loading"
   />
 </template>
 <script setup lang="ts">
@@ -39,6 +43,7 @@ import Calendar from "@/components/calendar.vue";
 import {getDatesInRange, getLastMonthDate} from "@/composables/useDate";
 import dayjs from "dayjs";
 import BaseAutocomplete from "@/components/base-autocomplete.vue";
+import BaseAccordion from "@/components/base-accordion.vue";
 
 const {t} = useI18n()
 
@@ -60,23 +65,22 @@ watch(statusFilter, () => sort())
 watch(filterDate, () => sort())
 
 const headers = computed(() => (
-    [
-      {title: t('table.date'), value: 'date', sortable: true},
-      { title: t('table.name'), value: 'fullName', sortable: true },
-      {title: t('table.sum'), value: 'sum', sortable: true},
-      {title: t('table.type'), value: 'type', sortable: true},
-      {title: t('table.status'), value: 'status', sortable: true}
-    ]
+  [
+    {title: t('table.date'), value: 'date', sortable: true},
+    {title: t('table.name'), value: 'fullName', sortable: true},
+    {title: t('table.sum'), value: 'sum', sortable: true},
+    {title: t('table.type'), value: 'type', sortable: true},
+    {title: t('table.status'), value: 'status', sortable: true}
+  ]
 ))
 
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
 
 const toFilterStatus = (value: IStatus) => statusFilter.value = value
-const toFilterTypeTransaction = (value: IType) => typeTransactionFilter.value = value
 
 const sort = async () => {
-  if(!items.value) return
+  if (!items.value) return
 
   const dates = getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 
@@ -94,7 +98,7 @@ const fetchData = async () => {
     const {data}: { data: IItem[] } = await getHistory()
     items.value = data
     sortedItems.value = data
-  } catch(e: any) {
+  } catch (e: any) {
     console.log(e)
     throw e
   }
@@ -125,5 +129,18 @@ onMounted(async () => {
   align-items: end;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.autocomplete-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.autocomplete {
+  max-width: 500px;
+  width: 100%;
 }
 </style>

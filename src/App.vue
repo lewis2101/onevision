@@ -14,3 +14,5 @@ const modal = computed(() => error.modal.value)
 useRouteLocale()
 
 </script>
+<style lang="scss" scoped>
+</style>
