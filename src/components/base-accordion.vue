@@ -19,6 +19,5 @@ defineProps<{
 <style lang="scss" scoped>
 .container {
   max-width: 250px;
-  margin-bottom: 10px;
 }
 </style>

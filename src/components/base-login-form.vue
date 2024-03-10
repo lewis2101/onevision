@@ -14,7 +14,9 @@
       label="Пароль"
     ></v-text-field>
     <div class="error" v-if="getError">Неверные данные</div>
-    <v-btn class="mt-2" type="submit" color="black" block :loading="getLoading">Авторизоваться</v-btn>
+    <div class="fixed">
+      <v-btn class="mt-2" height="50" type="submit" color="black" block :loading="getLoading">Авторизоваться</v-btn>
+    </div>
   </v-form>
 </template>
 
@@ -43,7 +45,18 @@ const getLoading: ComputedRef<boolean> = computed(() => props.loading)
 </script>
 
 <style lang="scss" scoped>
+@use '@/style/mixins/breakpoints' as *;
+
 .title {
   margin-bottom: 10px;
+}
+.fixed {
+  @include breakpoint_up(sm) {
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 }
 </style>

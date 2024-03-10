@@ -9,6 +9,7 @@
     />
   </div>
   <div class="filter">
+    <calendar v-model="filterDate"/>
     <base-accordion title="Фильтр">
       <select-filter
         v-model="typeTransactionFilter"
@@ -23,7 +24,6 @@
         @clear="statusFilter = null"
       />
     </base-accordion>
-    <calendar v-model="filterDate"/>
   </div>
   <base-table
     :headers="headers"
@@ -126,9 +126,9 @@ onMounted(async () => {
   max-width: 1200px;
   width: 100%;
   justify-content: flex-end;
-  align-items: end;
   gap: 10px;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .autocomplete-container {
