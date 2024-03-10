@@ -22,12 +22,11 @@
 <script setup lang="ts">
 import BaseGrafic from '@/components/base-grafic.vue';
 import {IItem, IType} from '@/types/table';
-import {computed, ComputedRef, onMounted, ref, watch} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
 import {filterType} from "@/types/filter";
 import {useI18n} from "vue-i18n";
-import dayjs from 'dayjs';
 import Calendar from "@/components/calendar.vue";
 import {getLastMonthDate} from "@/composables/useDate";
 
