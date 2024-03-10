@@ -48,7 +48,7 @@ const filterDate = ref<Array<string> | null>(null)
 
 const loading = ref(false)
 
-const listType: ComputedRef<Record<string, string>[]> = computed(() => {
+const listType: ComputedRef<Record<string, string | null>[]> = computed(() => {
   const types = filterType(t)
   types.unshift({
     title: t('type.all'),
