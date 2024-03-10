@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import Locale from "@/components/locale.vue";
-import {computed} from "vue";
+import {computed, ComputedRef} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import {titleOfRoute} from "@/locales/route-locale";
@@ -41,9 +41,14 @@ const route = useRoute()
 const router = useRouter()
 const {t} = useI18n()
 
-const getTitle = computed(() => t(titleOfRoute[route.name.toString()]))
+const logout = () => {
+  localStorage.removeItem('token')
+  router.push({ name: 'login' })
+}
 
-const routes = computed(() => (
+const getTitle: ComputedRef<string> = computed(() => t(titleOfRoute[route.name.toString()]))
+
+const routes: ComputedRef<Array<{ pathName: string, title: string }>> = computed(() => (
     [
       {
         pathName: `/${getLocale()}`,
@@ -59,11 +64,6 @@ const routes = computed(() => (
       },
     ]
 ))
-
-const logout = () => {
-  localStorage.removeItem('token')
-  router.push({ name: 'login' })
-}
 
 </script>
 

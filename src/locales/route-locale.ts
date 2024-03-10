@@ -3,7 +3,7 @@ import {useRoute, useRouter} from "vue-router";
 
 import {watch} from "vue";
 
-export const titleOfRoute = {
+export const titleOfRoute: Record<string, string> = {
   'main': 'header.main-title',
   'diagram': 'header.diagram-title',
   'report': 'header.report-title'
