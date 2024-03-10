@@ -8,8 +8,8 @@
 
 <script setup lang="ts">
 import Chart from 'chart.js/auto'
-import {computed, onMounted, watch} from "vue";
-import {IItem, IStatus, IType} from "@/types/table";
+import {computed, ComputedRef, onMounted, watch} from "vue";
+import {IDataChart, IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
 import {formatDate} from "@/helpers";
@@ -26,29 +26,43 @@ const {t} = useI18n()
 const route = useRoute()
 let chart = null
 
-const getItems = computed(() => props.items)
-const getCurrentType = computed(() => props.currentType)
-const labels = computed(() => {
+const draw = () => {
+  const myChart = document.getElementById('myChart') as HTMLCanvasElement
+  if (!myChart) return
+  const ctx = myChart.getContext('2d')
+
+  chart = new Chart(ctx, {type: 'line', data: dataChart.value})
+}
+
+const render = () => {
+  chart.data.datasets = dataChart.value.datasets
+  chart.data.labels = dataChart.value.labels
+  chart.update()
+}
+
+const getItems: ComputedRef<IItem[] | null> = computed(() => props.items)
+const getCurrentType: ComputedRef<IType> = computed(() => props.currentType)
+const labels: ComputedRef<string[] | []> = computed(() => {
   if(props.dateRange === null) return []
   return getDatesInRange(new Date(props.dateRange[0]), new Date(props.dateRange[1]))
 })
 
-const successItems = computed(() => {
+const successItems: ComputedRef<number[] | []> = computed(() => {
   if (getItems.value.length === 0) return []
   return calculateSum(getItems.value, 'success', labels.value, getCurrentType.value)
 })
 
-const pendingItems = computed(() => {
+const pendingItems: ComputedRef<number[] | []> = computed(() => {
   if (getItems.value.length === 0) return []
   return calculateSum(getItems.value, 'pending', labels.value, getCurrentType.value)
 })
 
-const rejectItems = computed(() => {
+const rejectItems: ComputedRef<number[] | []> = computed(() => {
   if (getItems.value.length === 0) return []
   return calculateSum(getItems.value, 'reject', labels.value, getCurrentType.value)
 })
 
-const dataChart = computed(() => (
+const dataChart: ComputedRef<IDataChart> = computed(() => (
   {
     labels: labels.value,
     datasets: [
@@ -77,27 +91,13 @@ const dataChart = computed(() => (
   }
 ))
 
-const render = () => {
-  chart.data.datasets = dataChart.value.datasets
-  chart.data.labels = dataChart.value.labels
-  chart.update()
-}
-
-const draw = () => {
-  const myChart = document.getElementById('myChart') as HTMLCanvasElement
-  if (!myChart) return
-  const ctx = myChart.getContext('2d')
-
-  chart = new Chart(ctx, {type: 'line', data: dataChart.value})
-}
+onMounted(() => {
+  draw()
+})
 
 watch(getCurrentType, () => render())
 watch(labels, () => render())
 watch(() => route.params.locale, () => render())
-
-onMounted(() => {
-  draw()
-})
 
 </script>
 

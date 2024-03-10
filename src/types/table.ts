@@ -22,3 +22,16 @@ export type IItem =  {
   fullName: string,
   id: string
 }
+
+type IDatasets = {
+  data: number[] | [];
+  backgroundColor: string;
+  borderColor: string;
+  borderWidth: number;
+  label: string
+}
+
+export type IDataChart = {
+  labels: string[] | [],
+  datasets: IDatasets[],
+}
