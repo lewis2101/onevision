@@ -22,14 +22,14 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, WritableComputedRef} from "vue";
 import error from '@/composables/useError'
 
 const props = defineProps<{
   modelValue: boolean
 }>()
 
-const modal = computed({
+const modal: WritableComputedRef<boolean> = computed({
   get: () => props.modelValue,
   set: e => !e ? error.hide() : error.show()
 })
