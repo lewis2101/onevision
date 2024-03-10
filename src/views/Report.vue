@@ -28,7 +28,7 @@
 import {useI18n} from "vue-i18n";
 import {computed, ComputedRef, onMounted, ref, watch} from "vue";
 import ReportTable from "@/components/report-table.vue";
-import {IReportItem} from "@/types/report";
+import {IReportItem, IReportList} from "@/types/report";
 import {getHistory} from "@/api/application";
 import {IItem, IStatus, IType, statusList} from "@/types/table";
 import {calculateAllSum, getDatesInRange, getLastMonthDate} from "@/composables/useDate";
@@ -72,7 +72,7 @@ const labels: ComputedRef<string[] | []> = computed(() => {
   return getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 })
 
-const headers: ComputedRef<string[]> = computed(() => (
+const headers: ComputedRef<IReportList[]> = computed(() => (
   [
     t('table.status'),
     t('table.sum')
