@@ -1,4 +1,8 @@
-export const filterType = (t: (message: string) => string): Record<string, string>[] =>  [
+export type IFilter = {
+  title: string,
+  value: string
+}
+export const filterType = (t: (message: string) => string): IFilter[] =>  [
   {
     title: t('type.buy'),
     value: 'buy',
@@ -13,7 +17,7 @@ export const filterType = (t: (message: string) => string): Record<string, strin
   }
 ]
 
-export const filterStatus = (t: (message: string) => string): Record<string, string>[] => [
+export const filterStatus = (t: (message: string) => string): IFilter[] => [
   {
     title: t('status.success'),
     value: 'success',

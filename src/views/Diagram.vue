@@ -25,7 +25,7 @@ import {IItem, IType} from '@/types/table';
 import {computed, ComputedRef, onMounted, ref, watch} from 'vue';
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
-import {filterType} from "@/types/filter";
+import {filterType, IFilter} from "@/types/filter";
 import {useI18n} from "vue-i18n";
 import dayjs from 'dayjs';
 import Calendar from "@/components/calendar.vue";
@@ -38,7 +38,7 @@ const filterDate = ref<Array<string> | null>(null)
 
 const setTypeTransaction = (value: IType) => currentTypeTransaction.value = value
 
-const listType: ComputedRef<Record<string, string>[]>= computed(() => filterType(t))
+const listType: ComputedRef<IFilter[]>= computed(() => filterType(t))
 
 onMounted(async() => {
   filterDate.value = [
