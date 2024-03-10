@@ -1,5 +1,11 @@
 <template>
-  <v-btn icon="mdi-calendar" @click="modal = true"></v-btn>
+  <v-btn
+    icon="mdi-calendar"
+    @click="modal = true"
+    :loading="getLoading"
+    :disabled="getLoading"
+  >
+  </v-btn>
   <base-modal title="Календарь" v-model="modal">
     <VueDatePicker
       v-model="date"
@@ -21,12 +27,13 @@
   </base-modal>
 </template>
 <script setup lang="ts">
-import {computed, ref, WritableComputedRef} from "vue";
+import {computed, ComputedRef, ref, WritableComputedRef} from "vue";
 import dayjs from "dayjs";
 import BaseModal from "@/components/base-modal.vue";
 
 const props = defineProps<{
-  modelValue: string[] | null
+  modelValue: string[] | null,
+  loading: boolean
 }>()
 
 const modal = ref(false)
@@ -37,6 +44,8 @@ const date: WritableComputedRef<string[] | null> = computed({
   get: () => props.modelValue,
   set: e => emit('update:modelValue', e)
 })
+
+const getLoading: ComputedRef<boolean> = computed(() => props.loading)
 
 </script>
 

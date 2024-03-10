@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels variant="accordion" class="container">
+  <v-expansion-panels variant="accordion" class="container" :disabled="getLoading">
     <v-expansion-panel
       :title="title"
     >
@@ -11,9 +11,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  title: string
+import {computed, ComputedRef} from "vue";
+
+const props = defineProps<{
+  title: string,
+  loading: boolean
 }>()
+
+const getLoading: ComputedRef<boolean> = computed(() => props.loading)
+
 </script>
 
 <style lang="scss" scoped>

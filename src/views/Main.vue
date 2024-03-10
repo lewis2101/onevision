@@ -5,12 +5,13 @@
       :no-data-text="$t('search.non')"
       :title="$t('search.title')"
       :items="sortedItems"
+      :loading="loading"
       class="autocomplete"
     />
   </div>
   <div class="filter">
-    <calendar v-model="filterDate"/>
-    <base-accordion title="Фильтр">
+    <calendar v-model="filterDate" :loading="loading"/>
+    <base-accordion title="Фильтр" :loading="loading">
       <select-filter
         v-model="typeTransactionFilter"
         :title="$t('table.type')"

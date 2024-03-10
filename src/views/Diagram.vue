@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="filter">
-      <calendar v-model="filterDate"/>
+      <calendar v-model="filterDate" :loading="loading"/>
       <select-filter
         v-model="currentTypeTransaction"
         :title="$t('table.type')"
         :list="listType"
+        :loading="loading"
         @clear="currentTypeTransaction = null"
       />
     </div>
@@ -35,9 +36,12 @@ const items = ref<IItem[] | null>(null)
 const currentTypeTransaction = ref<IType | null>(null)
 const filterDate = ref<Array<string> | null>(null)
 
+const loading = ref(false)
+
 const listType: ComputedRef<Record<string, string>[]> = computed(() => filterType(t))
 
 onMounted(async() => {
+  loading.value = true
   filterDate.value = [
     getLastMonthDate(new Date()).toString(),
     new Date().toString()
@@ -45,6 +49,7 @@ onMounted(async() => {
   try {
     const response = await getHistory()
     items.value = response.data
+    loading.value = false
   } catch (e: any) {
     console.log(e)
   }

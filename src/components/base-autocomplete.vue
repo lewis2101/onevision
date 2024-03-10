@@ -9,6 +9,8 @@
     bg-color="white"
     @update:focused="(value) => focus = value"
     @update:search="model"
+    :loading="getLoading"
+    :disabled="getLoading"
   >
   </v-autocomplete>
 </template>
@@ -20,7 +22,8 @@ const props = defineProps<{
   modelValue: string,
   title: string,
   items: IItem[] | null,
-  noDataText: string
+  noDataText: string,
+  loading: boolean
 }>()
 
 const focus = ref(false)
@@ -33,6 +36,7 @@ const model = (value) => {
 }
 
 const getItems: ComputedRef<IItem[] | null> = computed(() => props.items ? props.items : [])
+const getLoading: ComputedRef<boolean> = computed(() => props.loading)
 
 const sortedSearchItems: ComputedRef<string[] | []> = computed(() => {
   if(getItems.value === null) return []
