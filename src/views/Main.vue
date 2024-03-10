@@ -82,8 +82,8 @@ const fetchData = async () => {
   }
 }
 
-const listType: ComputedRef<IFilter[]> = computed(() => filterType(t))
-const listStatus: ComputedRef<IFilter[]> = computed(() => filterStatus(t))
+const listType = computed(() => filterType(t))
+const listStatus = computed(() => filterStatus(t))
 
 const headers = computed(() => (
   [

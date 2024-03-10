@@ -38,7 +38,7 @@ const filterDate = ref<Array<string> | null>(null)
 
 const setTypeTransaction = (value: IType) => currentTypeTransaction.value = value
 
-const listType: ComputedRef<IFilter[]>= computed(() => filterType(t))
+const listType = computed(() => filterType(t))
 
 onMounted(async() => {
   filterDate.value = [
