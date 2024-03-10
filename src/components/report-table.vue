@@ -25,7 +25,7 @@ import {IReportItem, IReportList} from "@/types/report";
 import {formatSum} from "../helpers/format";
 
 const props = defineProps<{
-  headers: string[],
+  headers: IReportList[],
   items: IReportItem[]
 }>()
 
