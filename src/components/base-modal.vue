@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, WritableComputedRef} from "vue";
 
 const props = defineProps<{
   modelValue: boolean,
@@ -26,7 +26,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
-const dialog = computed({
+const dialog: WritableComputedRef<boolean> = computed({
   get: () => props.modelValue,
   set: e => emit('update:modelValue', e)
 })

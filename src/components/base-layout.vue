@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <base-header/>
-      <div style="padding: 20px; background: white;">
+      <div class="content">
         <router-view/>
       </div>
     </v-main>
@@ -15,5 +15,8 @@ import BaseHeader from "@/components/base-header.vue";
 </script>
 
 <style lang="scss" scoped>
-
+.content {
+  padding: 20px;
+  background: white;
+}
 </style>

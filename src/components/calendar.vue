@@ -21,7 +21,7 @@
   </base-modal>
 </template>
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, ref, WritableComputedRef} from "vue";
 import dayjs from "dayjs";
 import BaseModal from "@/components/base-modal.vue";
 
@@ -33,7 +33,7 @@ const modal = ref(false)
 
 const emit = defineEmits(['update:modelValue'])
 
-const date = computed({
+const date: WritableComputedRef<string[] | null> = computed({
   get: () => props.modelValue,
   set: e => emit('update:modelValue', e)
 })

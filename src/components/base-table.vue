@@ -75,8 +75,8 @@ const getLoading: ComputedRef<boolean> = computed(() => props.loading)
 
 const perPageOptions: ComputedRef<number[]> = computed(() => {
   const options = [10]
-  if (getItems.value.length > 20) options.push(20)
-  if (getItems.value.length > 30) options.push(30)
+  if (getItems.value.length > 10) options.push(20)
+  if (getItems.value.length > 20) options.push(30)
   return options
 })
 
