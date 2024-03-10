@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="filter">
+      <calendar v-model="filterDate"/>
       <select-filter
         v-model="currentTypeTransaction"
         :title="$t('table.type')"
         :list="listType"
         @clear="currentTypeTransaction = null"
       />
-      <calendar v-model="filterDate"/>
     </div>
     <base-grafic
         v-if="items"
@@ -60,13 +60,12 @@ onMounted(async() => {
 
 .filter {
   margin: 0 auto;
-  padding-top: 20px;
   display: flex;
-  flex-direction: column;
   max-width: 1200px;
   width: 100%;
   justify-content: flex-end;
-  align-items: end;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 </style>
