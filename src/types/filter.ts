@@ -1,8 +1,4 @@
-export type IFilter = {
-  title: string,
-  value: string
-}
-export const filterType = (t: (message: string) => string): IFilter[] =>  [
+export const filterType = (t: (message: string) => string) =>  [
   {
     title: t('type.buy'),
     value: 'buy',
@@ -17,7 +13,7 @@ export const filterType = (t: (message: string) => string): IFilter[] =>  [
   }
 ]
 
-export const filterStatus = (t: (message: string) => string): IFilter[] => [
+export const filterStatus = (t: (message: string) => string) => [
   {
     title: t('status.success'),
     value: 'success',

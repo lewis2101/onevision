@@ -18,11 +18,13 @@
 
 <script setup lang="ts">
 import {computed, ComputedRef, WritableComputedRef} from "vue";
-import {IFilter} from "@/types/filter";
 
 const props = defineProps<{
   modelValue: string | null,
-  list: IFilter[],
+  list: Array<{
+    title: string,
+    value: string
+  }>,
   title: string
 }>()
 
