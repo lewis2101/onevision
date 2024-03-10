@@ -2,10 +2,10 @@
   <div>
     <div class="filter">
       <select-filter
+        v-model="currentTypeTransaction"
         :title="$t('table.type')"
         :list="listType"
         @clear="currentTypeTransaction = null"
-        @filter="setTypeTransaction"
       />
       <calendar v-model="filterDate"/>
     </div>
