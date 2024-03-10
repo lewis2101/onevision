@@ -18,6 +18,7 @@ declare module 'vue' {
     Calendar: typeof import('./src/components/calendar.vue')['default']
     ErrorModal: typeof import('./src/components/error-modal.vue')['default']
     Locale: typeof import('./src/components/locale.vue')['default']
+    ReportTable: typeof import('./src/components/report-table.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectFilter: typeof import('./src/components/select-filter.vue')['default']
