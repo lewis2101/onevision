@@ -2,12 +2,12 @@
   <v-select
     v-model="model"
     class="select"
-    clearable
+    :clearable="getClearable"
     :label="getTitle"
     :items="list"
     bg-color="white"
     @click:clear="$emit('clear')"
-    :loading="loading"
+    :loading="getLoading"
   >
     <template #item="{ props, item }">
       <v-list-item v-bind="props"></v-list-item>
@@ -22,7 +22,8 @@ const props = defineProps<{
   modelValue: string | null,
   list: Record<string, string>[],
   title: string,
-  loading?: boolean
+  loading?: boolean,
+  removeClear?: boolean
 }>()
 
 const emit = defineEmits(['clear', 'update:modelValue'])
@@ -35,6 +36,7 @@ const model: WritableComputedRef<string | null> = computed({
 })
 
 const getLoading: ComputedRef<boolean> = computed(() => props.loading ? props.loading : false)
+const getClearable: ComputedRef<boolean> = computed(() => !props.removeClear)
 
 </script>
 

@@ -19,7 +19,8 @@ import {calculateSum, getDatesInRange} from "@/composables/useDate";
 const props = defineProps<{
   items: IItem[] | null,
   currentType: IType,
-  dateRange: Array<string> | null
+  dateRange: Array<string> | null,
+  type: 'bar' | 'line',
 }>()
 
 const {t} = useI18n()
@@ -31,15 +32,15 @@ const draw = () => {
   if (!myChart) return
   const ctx = myChart.getContext('2d')
 
-  chart = new Chart(ctx, {type: 'line', data: dataChart.value})
+  chart = new Chart(ctx, {type: getTypeGrafic.value, data: dataChart.value})
 }
 
 const render = () => {
-  chart.data.datasets = dataChart.value.datasets
-  chart.data.labels = dataChart.value.labels
-  chart.update()
+  chart.destroy()
+  draw()
 }
 
+const getTypeGrafic: ComputedRef<'line' | 'bar'> = computed(() => props.type)
 const getItems: ComputedRef<IItem[] | null> = computed(() => props.items)
 const getCurrentType: ComputedRef<IType> = computed(() => props.currentType)
 const labels: ComputedRef<string[] | []> = computed(() => {
@@ -97,12 +98,16 @@ onMounted(() => {
 
 watch(getCurrentType, () => render())
 watch(labels, () => render())
+watch(getTypeGrafic, () => render())
 watch(() => route.params.locale, () => render())
 
 </script>
 
 <style lang="scss" scoped>
 .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 90vw;
   margin: 0 auto;

@@ -3,6 +3,14 @@
     <div class="filter">
       <calendar v-model="filterDate" :loading="loading"/>
       <select-filter
+        v-model="currentGraficType"
+        :title="$t('table.grafic')"
+        :list="listGrafic"
+        :loading="loading"
+        :remove-clear="true"
+        @clear="currentGraficType = null"
+      />
+      <select-filter
         v-model="currentTypeTransaction"
         :title="$t('table.type')"
         :list="listType"
@@ -12,6 +20,7 @@
     </div>
     <base-grafic
         v-if="items"
+        :type="currentGraficType"
         :items="items"
         :date-range="filterDate"
         :current-type="currentTypeTransaction"
@@ -26,19 +35,28 @@ import {IItem, IType} from '@/types/table';
 import {computed, ComputedRef, onMounted, ref} from 'vue';
 import {getHistory} from "@/api/application";
 import SelectFilter from "@/components/select-filter.vue";
-import {filterType} from "@/types/filter";
+import {filterGrafic, filterType} from "@/types/filter";
 import {useI18n} from "vue-i18n";
 import Calendar from "@/components/calendar.vue";
 import {getLastMonthDate} from "@/composables/useDate";
 
 const {t} = useI18n()
 const items = ref<IItem[] | null>(null)
-const currentTypeTransaction = ref<IType | null>(null)
+const currentTypeTransaction = ref<IType | 'all'>('buy')
+const currentGraficType = ref<'line' | 'bar'>('line')
 const filterDate = ref<Array<string> | null>(null)
 
 const loading = ref(false)
 
-const listType: ComputedRef<Record<string, string>[]> = computed(() => filterType(t))
+const listType: ComputedRef<Record<string, string>[]> = computed(() => {
+  const types = filterType(t)
+  types.unshift({
+    title: t('type.all'),
+    value: null
+  })
+  return types
+})
+const listGrafic: ComputedRef<Record<string, string>[]> = computed(() => filterGrafic(t))
 
 onMounted(async() => {
   loading.value = true

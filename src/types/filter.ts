@@ -13,6 +13,17 @@ export const filterType = (t: (message: string) => string): Record<string, strin
   }
 ]
 
+export const filterGrafic = (t: (message: string) => string): Record<string, string>[] =>  [
+  {
+    title: t('grafic.line'),
+    value: 'line'
+  },
+  {
+    title: t('grafic.bar'),
+    value: 'bar'
+  }
+]
+
 export const filterStatus = (t: (message: string) => string): Record<string, string>[] => [
   {
     title: t('status.success'),

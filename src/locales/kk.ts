@@ -13,7 +13,12 @@ export default {
     'name': 'ИЖН',
     'sum': 'Сомасы (₸)',
     'type': 'Транзакция түрі',
-    'status': 'Статус'
+    'status': 'Статус',
+    'grafic': 'Тип диаграммы'
+  },
+  grafic: {
+    'line': 'Линейный',
+    'bar': 'Вертикальный'
   },
   filter: 'Сүзгі',
   status: {
@@ -24,6 +29,7 @@ export default {
   type: {
     buy: 'Сатып алу',
     comeback: 'Қайтару',
-    subscribe: 'Жазылым'
+    subscribe: 'Жазылым',
+    all: 'Общая сводка'
   }
 }

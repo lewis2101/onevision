@@ -13,7 +13,12 @@ export default {
     'name': 'ФИО',
     'sum': 'Сумма (₸)',
     'type': 'Тип транзакции',
-    'status': 'Статус'
+    'status': 'Статус',
+    'grafic': 'Тип диаграммы'
+  },
+  grafic: {
+    'line': 'Линейный',
+    'bar': 'Вертикальный'
   },
   filter: 'Фильтр',
   status: {
@@ -24,6 +29,7 @@ export default {
   type: {
     buy: 'Покупка',
     comeback: 'Возврат',
-    subscribe: 'Подписка'
+    subscribe: 'Подписка',
+    all: 'Общая сводка'
   }
 }
