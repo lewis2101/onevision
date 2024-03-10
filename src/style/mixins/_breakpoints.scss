@@ -1,0 +1,12 @@
+@use '../variables' as *;
+@use 'sass:map';
+
+@mixin breakpoint_up($value) {
+  @if(map.has-key($breakpoints, $value)) {
+    @media(max-width: map.get($breakpoints, $value)) {
+      @content;
+    }
+  } @else {
+    @error 'error breakpoint - #{$value}'
+  }
+}

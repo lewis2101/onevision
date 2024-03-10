@@ -11,6 +11,7 @@ declare module 'vue' {
     BaseGrafic: typeof import('./src/components/base-grafic.vue')['default']
     BaseHeader: typeof import('./src/components/base-header.vue')['default']
     BaseLayout: typeof import('./src/components/base-layout.vue')['default']
+    BaseLoginForm: typeof import('./src/components/base-login-form.vue')['default']
     BaseTable: typeof import('./src/components/base-table.vue')['default']
     Calendar: typeof import('./src/components/calendar.vue')['default']
     ErrorModal: typeof import('./src/components/error-modal.vue')['default']
