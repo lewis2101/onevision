@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import BaseModal from "@/components/base-modal.vue";
-import {computed, ComputedRef} from "vue";
+import {computed, ComputedRef, WritableComputedRef} from "vue";
 import {formatPhone, formatSum} from "@/helpers";
 import {IItem} from "@/types/table";
 
@@ -33,7 +33,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue'])
 
-const modal = computed({
+const modal: WritableComputedRef<boolean> = computed({
   get: () => props.modelValue,
   set: e => emit('update:modelValue', e)
 })

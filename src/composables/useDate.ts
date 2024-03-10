@@ -1,19 +1,19 @@
 import dayjs from "dayjs";
 import {IItem, IStatus} from '@/types/table';
 
-export const getDatesInRange = (startDate: Date, endDate: Date) => {
+export const getDatesInRange = (startDate: Date, endDate: Date): string[]  => {
   let dates = [];
-  let currentDate = new Date(startDate.getTime()); // Create a new Date object
-  const endCurrentDate = new Date(endDate.getTime()); // Create a new Date object
-  while (currentDate.getTime() <= endCurrentDate.getTime()) { // Compare numeric values
+  let currentDate = new Date(startDate.getTime());
+  const endCurrentDate = new Date(endDate.getTime());
+  while (currentDate.getTime() <= endCurrentDate.getTime()) {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY').toString()); // Format dates using dayjs
+  dates = dates.map(i => dayjs(i).format('MM.DD.YYYY').toString());
   return dates;
 }
 
-export const calculateSum = (items: IItem[], status: IStatus, labels: string[], type: string) => {
+export const calculateSum = (items: IItem[], status: IStatus, labels: string[], type: string): number[] | [] => {
   if (items.length === 0) return []
 
   const calculatedArray = JSON.parse(JSON.stringify(labels))
@@ -27,7 +27,7 @@ export const calculateSum = (items: IItem[], status: IStatus, labels: string[], 
   return calculatedArray
 }
 
-export const getLastMonthDate = (date: Date) => {
+export const getLastMonthDate = (date: Date): Date => {
   const lastMonthDate = new Date(date);
   lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
   return lastMonthDate;

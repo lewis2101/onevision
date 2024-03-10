@@ -9,9 +9,7 @@
     @click:clear="$emit('clear')"
   >
     <template #item="{ props, item }">
-      <v-list-item
-        v-bind="props"
-      ></v-list-item>
+      <v-list-item v-bind="props"></v-list-item>
     </template>
   </v-select>
 </template>
@@ -25,9 +23,9 @@ const props = defineProps<{
   title: string
 }>()
 
-const getTitle: ComputedRef<string> = computed(() => props.title)
-
 const emit = defineEmits(['clear', 'update:modelValue'])
+
+const getTitle: ComputedRef<string> = computed(() => props.title)
 
 const model: WritableComputedRef<string | null> = computed({
   get: () => props.modelValue,

@@ -43,8 +43,8 @@ onMounted(async() => {
     new Date().toString()
   ]
   try {
-    const { data } = await getHistory()
-    items.value = data
+    const response = await getHistory()
+    items.value = response.data
   } catch (e: any) {
     console.log(e)
   }
