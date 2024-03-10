@@ -72,7 +72,7 @@ const labels: ComputedRef<string[] | []> = computed(() => {
   return getDatesInRange(new Date(filterDate.value[0]), new Date(filterDate.value[1]))
 })
 
-const headers: ComputedRef<IReportList[]> = computed(() => (
+const headers: ComputedRef<string[]> = computed(() => (
   [
     t('table.status'),
     t('table.sum')

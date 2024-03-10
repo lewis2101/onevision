@@ -25,11 +25,11 @@ import {IReportItem, IReportList} from "@/types/report";
 import {formatSum} from "../helpers/format";
 
 const props = defineProps<{
-  headers: IReportList[],
+  headers: string[],
   items: IReportItem[]
 }>()
 
-const getHeaders: ComputedRef<IReportList[]> = computed(() => props.headers)
+const getHeaders: ComputedRef<string[]> = computed(() => props.headers)
 const getItems: ComputedRef<IReportItem[]> = computed(() => props.items)
 
 </script>
