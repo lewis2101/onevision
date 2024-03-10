@@ -28,7 +28,7 @@ import {IItem} from "@/types/table";
 const props = defineProps<{
   modelValue: boolean,
   title: string,
-  item: IItem
+  item: IItem | null
 }>()
 
 const emit = defineEmits(['update:modelValue'])

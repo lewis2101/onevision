@@ -41,7 +41,6 @@ import SelectFilter from "@/components/select-filter.vue";
 import {filterStatus, filterType} from "@/types/filter";
 import Calendar from "@/components/calendar.vue";
 import {getDatesInRange, getLastMonthDate} from "@/composables/useDate";
-import dayjs from "dayjs";
 import BaseAutocomplete from "@/components/base-autocomplete.vue";
 import BaseAccordion from "@/components/base-accordion.vue";
 

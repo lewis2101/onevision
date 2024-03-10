@@ -26,7 +26,7 @@ import dayjs from "dayjs";
 import BaseModal from "@/components/base-modal.vue";
 
 const props = defineProps<{
-  modelValue: string | null
+  modelValue: string[] | null
 }>()
 
 const modal = ref(false)
