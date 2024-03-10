@@ -52,32 +52,10 @@ const statusFilter = ref<IStatus | null>(null)
 const filterDate = ref<string[] | null>(null)
 const search = ref('')
 
-watch(search, () => sort())
-
 const loading = ref(true)
-
-const listType = computed(() => filterType(t))
-
-const listStatus = computed(() => filterStatus(t))
-
-watch(typeTransactionFilter, () => sort())
-watch(statusFilter, () => sort())
-watch(filterDate, () => sort())
-
-const headers = computed(() => (
-  [
-    {title: t('table.date'), value: 'date', sortable: true},
-    {title: t('table.name'), value: 'fullName', sortable: true},
-    {title: t('table.sum'), value: 'sum', sortable: true},
-    {title: t('table.type'), value: 'type', sortable: true},
-    {title: t('table.status'), value: 'status', sortable: true}
-  ]
-))
 
 const items = ref<IItem[] | null>(null)
 const sortedItems = ref<IItem[] | null>(null)
-
-const toFilterStatus = (value: IStatus) => statusFilter.value = value
 
 const sort = async () => {
   if (!items.value) return
@@ -104,6 +82,19 @@ const fetchData = async () => {
   }
 }
 
+const listType: ComputedRef<Record<string, string>[]> = computed(() => filterType(t))
+const listStatus: ComputedRef<Record<string, string>[]> = computed(() => filterStatus(t))
+
+const headers = computed(() => (
+  [
+    {title: t('table.date'), value: 'date', sortable: true},
+    {title: t('table.name'), value: 'fullName', sortable: true},
+    {title: t('table.sum'), value: 'sum', sortable: true},
+    {title: t('table.type'), value: 'type', sortable: true},
+    {title: t('table.status'), value: 'status', sortable: true}
+  ]
+))
+
 onMounted(async () => {
   filterDate.value = [
     getLastMonthDate(new Date()).toString(),
@@ -116,6 +107,11 @@ onMounted(async () => {
     console.log(e)
   }
 })
+
+watch(typeTransactionFilter, () => sort())
+watch(statusFilter, () => sort())
+watch(filterDate, () => sort())
+watch(search, () => sort())
 
 </script>
 

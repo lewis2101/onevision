@@ -27,35 +27,11 @@
         </tr>
       </template>
     </v-data-table>
-    <v-dialog
-        v-model="modal"
-        width="auto"
-    >
-      <v-card
-          max-width="400"
-          min-width="300"
-          :title="`ID: ${currentItem.id}`"
-      >
-        <template #text>
-          <div>
-            <div>ФИО: TEST</div>
-            <div>Сумма: {{ formatSum(currentItem.sum) }}₸</div>
-            <div>Город: Алматы</div>
-            <div>Номер: <a :href="`tel:${'7083795484'}`">{{ formatPhone('7083795484') }}</a></div>
-            <div>Статус: {{ $t(`status.${currentItem.status}`) }}</div>
-            <div>Тип: {{ $t(`type.${currentItem.type}`) }}</div>
-            <div>Дата: {{ currentItem.date }}</div>
-          </div>
-        </template>
-        <template v-slot:actions>
-          <v-btn
-              class="ms-auto"
-              text="Ok"
-              @click="modal = false"
-          ></v-btn>
-        </template>
-      </v-card>
-    </v-dialog>
+    <table-details-modal
+      v-model="modal"
+      title="Подробнее"
+      :item="currentItem"
+    />
   </div>
   <div class="container" v-else>
     <v-skeleton-loader type="list-item-avatar" v-for="item in 10"></v-skeleton-loader>
@@ -63,9 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, ComputedRef, ref} from "vue";
 import {IItem, IStatus} from "@/types/table";
 import {formatSum, formatPhone, formatDate} from "@/helpers";
+import TableDetailsModal from "@/components/table-details-modal.vue";
 
 const props = defineProps<{
   items: IItem[] | null,
@@ -76,17 +53,6 @@ const props = defineProps<{
   }>,
   loading: boolean
 }>()
-
-const getItems = computed(() => props.items)
-
-const getLoading = computed(() => props.loading)
-
-const perPageOptions = computed(() => {
-  const options = [10]
-  if (getItems.value.length > 20) options.push(20)
-  if (getItems.value.length > 30) options.push(30)
-  return options
-})
 
 const modal = ref(false)
 const currentItem = ref<null | IItem>(null)
@@ -102,6 +68,17 @@ const onRowClick = (value: IItem) => {
   currentItem.value = value
   modal.value = true
 }
+
+const getItems: ComputedRef<IItem[]> = computed(() => props.items)
+
+const getLoading: ComputedRef<boolean> = computed(() => props.loading)
+
+const perPageOptions: ComputedRef<number[]> = computed(() => {
+  const options = [10]
+  if (getItems.value.length > 20) options.push(20)
+  if (getItems.value.length > 30) options.push(30)
+  return options
+})
 
 </script>
 

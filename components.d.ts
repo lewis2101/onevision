@@ -21,5 +21,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SelectFilter: typeof import('./src/components/select-filter.vue')['default']
+    TableDetailsModal: typeof import('./src/components/table-details-modal.vue')['default']
   }
 }
