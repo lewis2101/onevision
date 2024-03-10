@@ -2,8 +2,8 @@
   <v-table class="report-table">
     <thead>
     <tr>
-      <th class="text-left" v-for="header in getHeaders" :key="headers">
-        {{ header }}
+      <th class="text-left" v-for="item in getHeaders" :key="item">
+        {{ item }}
       </th>
     </tr>
     </thead>
