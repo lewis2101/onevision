@@ -21,10 +21,7 @@ import {computed, ComputedRef, WritableComputedRef} from "vue";
 
 const props = defineProps<{
   modelValue: string | null,
-  list: Array<{
-    title: string,
-    value: string
-  }>,
+  list: Record<string, string>[],
   title: string
 }>()
 
