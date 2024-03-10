@@ -72,9 +72,9 @@ const sort = async () => {
 
 const fetchData = async () => {
   try {
-    const {data}: { data: IItem[] } = await getHistory()
-    items.value = data
-    sortedItems.value = data
+    const response = await getHistory()
+    items.value = response.data
+    sortedItems.value = response.data
   } catch (e: any) {
     console.log(e)
     throw e

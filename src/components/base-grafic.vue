@@ -12,7 +12,7 @@ import {computed, ComputedRef, onMounted, watch} from "vue";
 import {IDataChart, IItem, IStatus, IType} from "@/types/table";
 import {useI18n} from "vue-i18n";
 import {useRoute} from "vue-router";
-import {formatDate} from "@/helpers";
+import {formatDate} from "@/helpers/format";
 import dayjs from "dayjs";
 import {calculateSum, getDatesInRange} from "@/composables/useDate";
 

@@ -1,14 +1,15 @@
-import axios from "axios";
+import axios, {AxiosInstance} from "axios";
 import error from '@/composables/useError'
 import router from "@/router";
 
-export const useFetch = () => {
+export const useFetch = (): AxiosInstance => {
   const instance = axios.create({
     baseURL: 'https://onevision-api.vercel.app/api',
     headers: {
       token: localStorage.getItem('token')
     }
   })
+
   instance.interceptors.response.use(
     (value) => Promise.resolve(value),
     (value) => {

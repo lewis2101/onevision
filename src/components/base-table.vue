@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import {computed, ComputedRef, ref} from "vue";
 import {IItem, IStatus} from "@/types/table";
-import {formatSum, formatPhone, formatDate} from "@/helpers";
+import {formatSum, formatPhone, formatDate} from "@/helpers/format";
 import TableDetailsModal from "@/components/table-details-modal.vue";
 
 const props = defineProps<{

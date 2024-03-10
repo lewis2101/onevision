@@ -34,7 +34,7 @@ import Locale from "@/components/locale.vue";
 import {computed, ComputedRef} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
-import {titleOfRoute} from "@/locales/route-locale";
+import {titleOfRoute} from "@/composables/route-locale";
 import {getLocale} from "@/plugins/i18n";
 
 const route = useRoute()

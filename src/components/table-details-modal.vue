@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import BaseModal from "@/components/base-modal.vue";
 import {computed, ComputedRef, WritableComputedRef} from "vue";
-import {formatPhone, formatSum} from "@/helpers";
+import {formatPhone, formatSum} from "@/helpers/format";
 import {IItem} from "@/types/table";
 
 const props = defineProps<{
