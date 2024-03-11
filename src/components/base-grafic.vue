@@ -97,7 +97,9 @@ onMounted(() => {
 })
 
 watch(getCurrentType, () => render())
-watch(labels, () => render())
+watch(labels, value => {
+  value.length > 0 && render()
+})
 watch(getTypeGrafic, () => render())
 watch(() => route.params.locale, () => render())
 
