@@ -3,8 +3,8 @@
     <v-data-table
         page-text=""
         :show-current-page="true"
-        items-per-page-text="Количество"
-        no-data-text="Ничего не найдено"
+        :items-per-page-text="$t('table.count')"
+        :no-data-text="$t('search.non')"
         :items-per-page-options="perPageOptions"
         :items="getItems"
         :headers="headers"
@@ -29,7 +29,7 @@
     </v-data-table>
     <table-details-modal
       v-model="modal"
-      title="Подробнее"
+      :title="$t('details.title')"
       :item="currentItem"
     />
   </div>

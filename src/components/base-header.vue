@@ -19,7 +19,7 @@
             <div class="item">{{ item.title }}</div>
           </v-list-item>
           <v-list-item>
-            <div class="item exit" @click="logout">Выйти</div>
+            <div class="item exit" @click="logout">{{ $t('header.exit') }}</div>
           </v-list-item>
         </v-list>
       </v-menu>

@@ -3,12 +3,14 @@ export default {
     ['main-title']: 'Транзакция тарихы',
     ['diagram-title']: 'График-диаграмма',
     ['report-title']: 'Есеп',
+    exit: 'Шығу'
   },
   search: {
     title: 'Іздеу',
     non: 'Ештеңе табылған жоқ'
   },
   table: {
+    'count': 'Саны',
     'date': 'Уақыт күні',
     'name': 'АТЖ',
     'sum': 'Сомасы (₸)',
@@ -33,6 +35,7 @@ export default {
     all: 'Жалпы қорытынды'
   },
   details: {
+    title: 'Толығырақ',
     id: 'Транзакция нөмірі',
     fullName: 'АТЖ',
     sum: 'Сомасы',

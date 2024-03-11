@@ -3,12 +3,14 @@ export default {
     ['main-title']: 'История транзакции',
     ['diagram-title']: 'График-диаграмма',
     ['report-title']: 'Отчет',
+    exit: 'Выйти'
   },
   search: {
     title: 'Поиск',
     non: 'Ничего не найдено'
   },
   table: {
+    'count': 'Количество',
     'date': 'Дата',
     'name': 'ФИО',
     'sum': 'Сумма (₸)',
@@ -33,6 +35,7 @@ export default {
     all: 'Общая сводка'
   },
   details: {
+    title: 'Подробнее',
     id: 'Номер транзакции',
     fullName: 'ФИО',
     sum: 'Сумма',
