@@ -110,7 +110,9 @@ onMounted(async () => {
 
 watch(typeTransactionFilter, () => sort())
 watch(statusFilter, () => sort())
-watch(filterDate, () => sort())
+watch(filterDate, value => {
+  if(Array.isArray(value)) sort()
+})
 watch(search, () => sort())
 
 </script>

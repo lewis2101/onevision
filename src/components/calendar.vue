@@ -20,14 +20,15 @@
       auto-apply
     />
     <div class="centered">
-      <v-btn @click="modal = false">{{ $t('calendar.save') }}</v-btn>
+      <v-btn :disabled="disabled" @click="save">{{ $t('calendar.save') }}</v-btn>
     </div>
   </base-modal>
 </template>
 <script setup lang="ts">
-import {computed, ComputedRef, ref, WritableComputedRef} from "vue";
+import {computed, ComputedRef, ref, watch, WritableComputedRef} from "vue";
 import dayjs from "dayjs";
 import BaseModal from "@/components/base-modal.vue";
+import {getLastMonthDate} from "@/composables/useDate";
 
 const props = defineProps<{
   modelValue: string[] | null,
@@ -35,8 +36,11 @@ const props = defineProps<{
 }>()
 
 const modal = ref(false)
+const disabled = ref(false)
 
 const emit = defineEmits(['update:modelValue'])
+
+const save = () => modal.value = false
 
 const date: WritableComputedRef<string[] | null> = computed({
   get: () => props.modelValue,
@@ -44,6 +48,16 @@ const date: WritableComputedRef<string[] | null> = computed({
 })
 
 const getLoading: ComputedRef<boolean> = computed(() => props.loading)
+
+watch(date, value => {
+  disabled.value = !Array.isArray(value)
+})
+watch(modal, () => {
+  if(!Array.isArray(date.value)) date.value = [
+    getLastMonthDate(new Date()).toString(),
+    new Date().toString()
+  ]
+})
 
 </script>
 
