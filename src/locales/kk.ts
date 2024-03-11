@@ -31,5 +31,24 @@ export default {
     comeback: 'Қайтару',
     subscribe: 'Жазылым',
     all: 'Жалпы қорытынды'
+  },
+  details: {
+    id: 'Транзакция нөмірі',
+    fullName: 'АТЖ',
+    sum: 'Сомасы',
+    city: 'Қала',
+    phone: 'Номер',
+    status: 'Статус',
+    type: 'Түрі',
+    date: 'Күні',
+    back: 'Назад'
+  },
+  calendar: {
+    title: 'Күнтізбе',
+    save: 'Сақтау'
+  },
+  error: {
+    title: 'Ошибка',
+    subtitle: 'Сервер жауап бермейді'
   }
 }

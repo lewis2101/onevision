@@ -31,5 +31,24 @@ export default {
     comeback: 'Возврат',
     subscribe: 'Подписка',
     all: 'Общая сводка'
+  },
+  details: {
+    id: 'Номер транзакции',
+    fullName: 'ФИО',
+    sum: 'Сумма',
+    city: 'Город',
+    phone: 'Номер',
+    status: 'Статус',
+    type: 'Тип',
+    date: 'Дата',
+    back: 'Назад'
+  },
+  calendar: {
+    title: 'Календарь',
+    save: 'Cохранить'
+  },
+  error: {
+    title: 'Ошибка',
+    subtitle: 'Сервер не отвечает'
   }
 }

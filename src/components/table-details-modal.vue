@@ -4,16 +4,16 @@
     v-model="modal"
   >
     <div class="item">
-      <h2>Номер транзакции: №{{ currentItem.id }}</h2>
-      <div>ФИО: {{ currentItem.fullName }}</div>
-      <div>Сумма: {{ formatSum(currentItem.sum) }}₸</div>
-      <div>Город: Алматы</div>
-      <div>Номер: <a :href="`tel:${'7083795484'}`">{{ formatPhone('7083795484') }}</a></div>
-      <div>Статус: {{ $t(`status.${currentItem.status}`) }}</div>
-      <div>Тип: {{ $t(`type.${currentItem.type}`) }}</div>
-      <div>Дата: {{ currentItem.date }}</div>
+      <h2>{{ $t('details.id') }}: №{{ currentItem.id }}</h2>
+      <div>{{ $t('details.fullName') }}: {{ currentItem.fullName }}</div>
+      <div>{{ $t('details.sum') }}: {{ formatSum(currentItem.sum) }}₸</div>
+      <div>{{ $t('details.city') }}: {{ currentItem.city }}</div>
+      <div>{{ $t('details.phone') }}: <a :href="`tel:${'7083795484'}`">{{ formatPhone('7083795484') }}</a></div>
+      <div>{{ $t('details.status') }}: {{ $t(`status.${currentItem.status}`) }}</div>
+      <div>{{ $t('details.type') }}: {{ $t(`type.${currentItem.type}`) }}</div>
+      <div>{{ $t('details.date') }}: {{ currentItem.date }}</div>
       <div class="centered">
-        <v-btn @click="modal = false">Назад</v-btn>
+        <v-btn @click="modal = false">{{ $t('details.back') }}</v-btn>
       </div>
     </div>
   </base-modal>

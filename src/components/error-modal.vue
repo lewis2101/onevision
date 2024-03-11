@@ -7,8 +7,8 @@
       max-width="400"
       min-width="300"
       prepend-icon="mdi-alert"
-      text="Сервер не отвечает"
-      title="Ошибка"
+      :text="$t('error.subtitle')"
+      :title="$t('error.title')"
     >
       <template v-slot:actions>
         <v-btn

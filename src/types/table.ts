@@ -21,6 +21,7 @@ export type IItem =  {
   type: IType,
   status: IStatus,
   fullName: string,
+  city: string,
   id: string
 }
 

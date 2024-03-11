@@ -6,13 +6,11 @@
     :disabled="getLoading"
   >
   </v-btn>
-  <base-modal title="Календарь" v-model="modal">
+  <base-modal :title="$t('calendar.title')" v-model="modal">
     <VueDatePicker
       v-model="date"
       :clearable="false"
       class="calendar"
-      select-text="Выбрать"
-      cancel-text="Отмена"
       locale="ru"
       date
       range
@@ -22,7 +20,7 @@
       auto-apply
     />
     <div class="centered">
-      <v-btn @click="modal = false">Сохранить</v-btn>
+      <v-btn @click="modal = false">{{ $t('calendar.save') }}</v-btn>
     </div>
   </base-modal>
 </template>

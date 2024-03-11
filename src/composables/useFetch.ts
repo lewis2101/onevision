@@ -2,9 +2,10 @@ import axios, {AxiosInstance} from "axios";
 import error from '@/composables/useError'
 import router from "@/router";
 
+const baseURL = import.meta.env.VITE_BASE_URL
 export const useFetch = (): AxiosInstance => {
   const instance = axios.create({
-    baseURL: 'https://onevision-api.vercel.app/api',
+    baseURL,
     headers: {
       token: localStorage.getItem('token')
     }
