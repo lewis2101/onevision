@@ -16,10 +16,12 @@
     "js-levenshtein": "^1.1.6",
     "roboto-fontface": "*",
     "string-similarity": "^4.0.4",
+    "vite-plugin-pwa": "^0.19.8",
     "vue": "^3.3.0",
     "vue-i18n": "^9.10.1",
     "vue-router": "^4.3.0",
-    "vuetify": "^3.0.0"
+    "vuetify": "^3.0.0",
+    "workbox": "^0.0.0"
   },
   "devDependencies": {
     "@babel/types": "^7.23.0",
