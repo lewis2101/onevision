@@ -18,7 +18,7 @@ import {onMounted, ref} from "vue";
 const videoStream = ref<any>()
 const videoElement = ref<HTMLVideoElement>()
 const showInstallButton = ref(false)
-const deferredPrompt = ref<Event>()
+const deferredPrompt = ref<any>()
 
 const startWebcam = async () => {
   try {
