@@ -3,6 +3,7 @@ export default {
     ['main-title']: 'История транзакции',
     ['diagram-title']: 'График-диаграмма',
     ['report-title']: 'Отчет',
+    'debug': 'Дебаг',
     exit: 'Выйти'
   },
   search: {

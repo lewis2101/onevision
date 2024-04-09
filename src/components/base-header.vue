@@ -62,6 +62,10 @@ const routes: ComputedRef<Array<{ pathName: string, title: string }>> = computed
         pathName: `/${getLocale()}/report`,
         title: t('header.report-title')
       },
+      {
+        pathName: `/${getLocale()}/debug`,
+        title: t('header.report-title')
+      },
     ]
 ))
 
