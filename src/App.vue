@@ -19,11 +19,13 @@ useRouteLocale()
 
 </script>
 <style lang="scss" scoped>
-.slide-enter-active,
-.slide-leave-active {
-  transition: transform .5s;
-}
-.slide-enter-from {
-  transform: translateX(100%);
+@media (max-width: 750px) {
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform .5s;
+  }
+  .slide-enter-from {
+    transform: translateX(100%);
+  }
 }
 </style>
