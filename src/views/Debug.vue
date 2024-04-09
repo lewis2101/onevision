@@ -2,6 +2,7 @@
   <div :class="$style.container">
       <v-btn :class="$style.btn" @click="modal">alert</v-btn>
       <v-btn :class="$style.btn" @click="modalInput">propt</v-btn>
+    <v-btn v-if="showInstallButton" @click="installPWA">Установить на главный экран</v-btn>
     <div :class="$style.container">
       <h1>Web Camera Example</h1>
       <video ref="videoElement" autoplay></video>
@@ -12,10 +13,12 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 const videoStream = ref<any>()
 const videoElement = ref<HTMLVideoElement>()
+const showInstallButton = ref(false)
+const deferredPrompt = ref<Event>()
 
 const startWebcam = async () => {
   try {
@@ -40,6 +43,42 @@ const modal = () => {
 const modalInput = () => {
   prompt('DEBUG')
 }
+
+onMounted(() => {
+  if ('Notification' in window && Notification.permission !== 'granted') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        // Разрешение получено, можно отправлять уведомления
+      }
+    });
+  }
+})
+
+const installPWA = () => {
+  if (deferredPrompt.value) {
+    deferredPrompt.value.prompt();
+    // Ожидаем реакции пользователя
+    deferredPrompt.value.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Пользователь согласился установить PWA');
+      } else {
+        console.log('Пользователь отклонил установку PWA');
+      }
+      // Сбрасываем deferredPrompt после завершения запроса
+      deferredPrompt.value = null;
+      // Скрываем кнопку для установки PWA
+      showInstallButton.value = false;
+    });
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt.value = event;
+    showInstallButton.value = true
+  });
+})
 
 </script>
 
