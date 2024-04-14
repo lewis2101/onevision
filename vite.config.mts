@@ -19,9 +19,10 @@ export default defineConfig({
       outDir: 'dist',
       registerType: 'autoUpdate',
       manifest: {
-        name: 'OneVision',
-        short_name: 'OneVision',
+        name: 'One Vision',
+        short_name: 'One Vision',
         theme_color: '#000000',
+        background_color: '#000000',
         icons: [
           {
             src: 'assets/android-chrome-192x192.png',
