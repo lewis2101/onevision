@@ -23,7 +23,7 @@
 import {getLocale} from "@/plugins/i18n";
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 .nav {
  padding-bottom: 10px;
 }
