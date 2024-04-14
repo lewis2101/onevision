@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation bg-color="#000000">
+  <v-bottom-navigation bg-color="#000000" :class="$style.nav">
     <v-btn value="recent" @click="$router.push(`/${getLocale()}`)">
       <v-icon>mdi-history</v-icon>
       <span>История</span>
@@ -24,5 +24,7 @@ import {getLocale} from "@/plugins/i18n";
 </script>
 
 <style lang="scss" scoped>
-
+.nav {
+ padding-bottom: 10px;
+}
 </style>
