@@ -13,10 +13,10 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:locale(ru|kk)',
-    beforeEnter: async (to, from, next) => {
-      await checkAuth()
-      next()
-    },
+    // beforeEnter: async (to, from, next) => {
+    //   await checkAuth()
+    //   next()
+    // },
     component: () => import('@/components/base-layout.vue'),
     children: [
       {

@@ -16,20 +16,32 @@ export default defineConfig({
       template: { transformAssetUrls },
     }),
     VitePWA({
+      outDir: 'dist',
+      registerType: 'autoUpdate',
       manifest: {
         name: 'OneVision',
         short_name: 'OneVision',
         theme_color: '#000000',
         icons: [
           {
-            src: 'logo.png',
+            src: 'assets/android-chrome-192x192.png',
             sizes: '192x192',
-            type: 'image/png',
+            type: 'image/png'
           },
           {
-            src: 'logo.png',
+            src: 'assets/android-chrome-512x512.png',
             sizes: '512x512',
-            type: 'image/png',
+            type: 'image/png'
+          },
+          {
+            src: 'assets/favicon-16x16.png',
+            sizes: '16x16',
+            type: 'image/png'
+          },
+          {
+            src: 'assets/favicon-32x32.png',
+            sizes: '32x32',
+            type: 'image/png'
           },
         ],
       },
