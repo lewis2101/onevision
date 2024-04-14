@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation bg-color="#000000" style="display: flex;" >
+  <v-bottom-navigation bg-color="#000000">
     <v-btn value="recent" @click="$router.push(`/${getLocale()}`)">
       <v-icon>mdi-history</v-icon>
       <span>История</span>

@@ -36,7 +36,7 @@ import BaseBottomNav from "@/components/base-bottom-nav.vue";
 .mobile {
   display: none;
   @include breakpoint_up(sm) {
-    display: block;
+    display: flex;
   }
 }
 </style>
