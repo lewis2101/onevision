@@ -25,7 +25,6 @@ import {getLocale} from "@/plugins/i18n";
 
 <style lang="scss" module>
 .nav {
- padding-bottom: 2rem;
- height: fit-content;
+ margin-bottom: 10px;
 }
 </style>
